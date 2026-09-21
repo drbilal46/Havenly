@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Havenly — Find a Place That Feels Like Home</title>
+  <meta name="description" content="Havenly is a modern property rental platform concept for discovering apartments, villas and homes.">
+  <meta name="theme-color" content="#171817">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --dark: #171817;
+      --dark-soft: #222422;
+      --cream: #f5f1e8;
+      --white: #ffffff;
+      --muted: #73766f;
+      --line: #ddd9cf;
+      --accent: #c79b62;
+      --accent-dark: #a77b46;
+      --soft: #eeeae0;
+      --shadow: 0 20px 60px rgba(0,0,0,.10);
+      --radius: 24px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 40px));
+      margin: auto;
+    }
+
+    /* HEADER */
+
+    .site-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 20;
+      color: #fff;
+    }
+
+    .nav {
+      min-height: 88px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .logo {
+      justify-self: start;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(255,255,255,.65);
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      font-family: "Playfair Display", serif;
+      font-size: 1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      font-size: .9rem;
+      color: rgba(255,255,255,.82);
+    }
+
+    .nav-links a {
+      transition: color .25s ease;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .nav-actions {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .signin {
+      font-size: .88rem;
+      color: rgba(255,255,255,.9);
+    }
+
+    .list-btn {
+      padding: 11px 17px;
+      border: 1px solid rgba(255,255,255,.5);
+      border-radius: 999px;
+      font-size: .84rem;
+      transition: .25s ease;
+    }
+
+    .list-btn:hover {
+      background: #fff;
+      color: var(--dark);
+    }
+
+    .menu-btn {
+      display: none;
+      border: 0;
+      background: transparent;
+      color: #fff;
+      font-size: 1.7rem;
+      cursor: pointer;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 760px;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      background:
+        linear-gradient(90deg, rgba(8,10,9,.78), rgba(8,10,9,.28)),
+        url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2200&q=85")
+        center/cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 170px;
+      background: linear-gradient(transparent, rgba(0,0,0,.18));
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: min(980px, 100%);
+      margin: 110px auto 0;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: .72rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      opacity: .88;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    .hero h1 {
+      max-width: 850px;
+      margin: auto;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(3.3rem, 7vw, 6.5rem);
+      font-weight: 600;
+      line-height: .98;
+      letter-spacing: -.045em;
+    }
+
+    .hero-text {
+      max-width: 570px;
+      margin: 25px auto 35px;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.84);
+    }
+
+    /* SEARCH */
+
+    .search-panel {
+      background: rgba(255,255,255,.97);
+      color: var(--dark);
+      padding: 9px;
+      border-radius: 18px;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr 1fr 1fr auto;
+      box-shadow: 0 22px 60px rgba(0,0,0,.24);
+      text-align: left;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .search-field {
+      padding: 13px 18px;
+      border-right: 1px solid #e7e4dc;
+    }
+
+    .search-field label {
+      display: block;
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: .11em;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .search-field input,
+    .search-field select {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--dark);
+      font-size: .91rem;
+      cursor: pointer;
+    }
+
+    .search-field input::placeholder {
+      color: #343633;
+    }
+
+    .search-btn {
+      border: 0;
+      min-width: 125px;
+      border-radius: 13px;
+      background: var(--dark);
+      color: #fff;
+      cursor: pointer;
+      font-weight: 600;
+      transition: .25s ease;
+    }
+
+    .search-btn:hover {
+      background: #30332f;
+      transform: translateY(-1px);
+    }
+
+    /* TRUST STRIP */
+
+    .trust-strip {
+      background: var(--white);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .trust-inner {
+      min-height: 105px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: center;
+      text-align: center;
+    }
+
+    .trust-item {
+      padding: 10px 20px;
+      border-right: 1px solid var(--line);
+    }
+
+    .trust-item:last-child {
+      border-right: 0;
+    }
+
+    .trust-item strong {
+      display: block;
+      font-family: "Playfair Display", serif;
+      font-size: 1.35rem;
+      margin-bottom: 3px;
+    }
+
+    .trust-item span {
+      color: var(--muted);
+      font-size: .84rem;
+    }
+
+    /* GENERAL */
+
+    section {
+      padding: 105px 0;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 30px;
+      margin-bottom: 42px;
+    }
+
+    .section-heading h2 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.3rem, 4vw, 3.6rem);
+      line-height: 1;
+      letter-spacing: -.035em;
+      max-width: 600px;
+    }
+
+    .section-heading p {
+      max-width: 380px;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: .86rem;
+      white-space: nowrap;
+    }
+
+    .text-link span {
+      transition: transform .2s ease;
+    }
+
+    .text-link:hover span {
+      transform: translateX(4px);
+    }
+
+    /* FEATURED PROPERTIES */
+
+    .properties {
+      background: var(--cream);
+    }
+
+    .property-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr .85fr;
+      gap: 20px;
+    }
+
+    .property-card {
+      position: relative;
+      min-height: 475px;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: #222;
+      color: #fff;
+    }
+
+    .property-card.small {
+      min-height: 390px;
+    }
+
+    .property-card img {
+      height: 100%;
+      object-fit: cover;
+      transition: transform .6s ease;
+    }
+
+    .property-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .property-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      padding: 26px;
+      background: linear-gradient(transparent 35%, rgba(0,0,0,.76));
+    }
+
+    .favorite {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(255,255,255,.5);
+      background: rgba(0,0,0,.18);
+      color: #fff;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      backdrop-filter: blur(5px);
+    }
+
+    .tag {
+      display: inline-block;
+      width: fit-content;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.16);
+      backdrop-filter: blur(7px);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      margin-bottom: 12px;
+    }
+
+    .property-card h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 1.7rem;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .property-location {
+      color: rgba(255,255,255,.76);
+      font-size: .82rem;
+      margin-bottom: 14px;
+    }
+
+    .property-meta {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      font-size: .75rem;
+      color: rgba(255,255,255,.84);
+    }
+
+    .property-price {
+      margin-top: 15px;
+      font-weight: 700;
+      font-size: .94rem;
+    }
+
+    /* CATEGORIES */
+
+    .categories {
+      background: var(--white);
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .category {
+      position: relative;
+      height: 330px;
+      overflow: hidden;
+      border-radius: 20px;
+      color: #fff;
+    }
+
+    .category img {
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+
+    .category:hover img {
+      transform: scale(1.06);
+    }
+
+    .category::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent 35%, rgba(0,0,0,.65));
+    }
+
+    .category-content {
+      position: absolute;
+      z-index: 2;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+    }
+
+    .category-content h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 1.45rem;
+    }
+
+    .category-content span {
+      font-size: .75rem;
+      color: rgba(255,255,255,.75);
+    }
+
+    /* STORY */
+
+    .story {
+      background: var(--dark);
+      color: #fff;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      align-items: center;
+      gap: 80px;
+    }
+
+    .story-image {
+      height: 590px;
+      border-radius: 25px;
+      overflow: hidden;
+    }
+
+    .story-image img {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .story-copy .eyebrow {
+      color: var(--accent);
+    }
+
+    .story-copy h2 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.5rem, 4vw, 4.3rem);
+      line-height: 1.03;
+      letter-spacing: -.04em;
+      margin-bottom: 25px;
+    }
+
+    .story-copy > p {
+      color: #b7bab3;
+      max-width: 520px;
+      margin-bottom: 35px;
+    }
+
+    .features-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .feature {
+      padding-top: 18px;
+      border-top: 1px solid #3a3d39;
+    }
+
+    .feature strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .feature span {
+      color: #92958e;
+      font-size: .82rem;
+    }
+
+    /* LOCATIONS */
+
+    .locations {
+      background: var(--soft);
+    }
+
+    .location-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .location-card {
+      min-height: 180px;
+      padding: 25px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      transition: .25s ease;
+    }
+
+    .location-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .location-card small {
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    .location-card h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 1.7rem;
+    }
+
+    /* TESTIMONIAL */
+
+    .testimonial {
+      background: var(--cream);
+    }
+
+    .quote-box {
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .quote-mark {
+      font-family: "Playfair Display", serif;
+      font-size: 5rem;
+      line-height: .6;
+      color: var(--accent);
+      margin-bottom: 25px;
+    }
+
+    .quote-box blockquote {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      line-height: 1.2;
+      letter-spacing: -.025em;
+    }
+
+    .quote-author {
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    /* CTA */
+
+    .cta {
+      padding-top: 25px;
+      padding-bottom: 105px;
+      background: var(--cream);
+    }
+
+    .cta-box {
+      min-height: 390px;
+      padding: 60px;
+      border-radius: 28px;
+      color: #fff;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 40px;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.72), rgba(0,0,0,.18)),
+        url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=85")
+        center/cover no-repeat;
+    }
+
+    .cta-box h2 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.5rem, 5vw, 4.7rem);
+      line-height: 1;
+      max-width: 650px;
+      letter-spacing: -.04em;
+    }
+
+    .cta-btn {
+      flex-shrink: 0;
+      padding: 15px 23px;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--dark);
+      font-weight: 700;
+      font-size: .86rem;
+      transition: .25s ease;
+    }
+
+    .cta-btn:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: var(--dark);
+      color: #fff;
+      padding: 70px 0 25px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr 1fr 1fr;
+      gap: 50px;
+      padding-bottom: 60px;
+    }
+
+    .footer-brand p {
+      max-width: 320px;
+      color: #94978f;
+      margin-top: 18px;
+      font-size: .86rem;
+    }
+
+    .footer-column h4 {
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      margin-bottom: 18px;
+      color: #d9dcd5;
+    }
+
+    .footer-column a {
+      display: block;
+      color: #92958e;
+      font-size: .83rem;
+      margin-bottom: 10px;
+      transition: color .2s ease;
+    }
+
+    .footer-column a:hover {
+      color: #fff;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #30332f;
+      padding-top: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      color: #777a74;
+      font-size: .75rem;
+    }
+
+    /* TOAST */
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 25px;
+      transform: translate(-50%, 100px);
+      background: var(--dark);
+      color: #fff;
+      padding: 13px 20px;
+      border-radius: 999px;
+      font-size: .82rem;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transition: .3s ease;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 980px) {
+      .nav {
+        grid-template-columns: 1fr auto;
+      }
+
+      .nav-links,
+      .nav-actions {
+        display: none;
+      }
+
+      .menu-btn {
+        display: block;
+        justify-self: end;
+      }
+
+      .nav.mobile-open {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 18px 0 25px;
+      }
+
+      .nav.mobile-open .logo {
+        margin-right: auto;
+      }
+
+      .nav.mobile-open .nav-links,
+      .nav.mobile-open .nav-actions {
+        display: flex;
+        width: 100%;
+      }
+
+      .nav.mobile-open .nav-links {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+        padding-top: 15px;
+      }
+
+      .nav.mobile-open .nav-actions {
+        justify-content: flex-start;
+        padding-top: 8px;
+      }
+
+      .search-panel {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .search-field {
+        border-bottom: 1px solid #e7e4dc;
+      }
+
+      .search-btn {
+        min-height: 55px;
+      }
+
+      .property-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .property-card:first-child {
+        grid-column: 1 / -1;
+      }
+
+      .category-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .story-grid {
+        grid-template-columns: 1fr;
+        gap: 45px;
+      }
+
+      .story-image {
+        height: 480px;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .container {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .hero {
+        min-height: 760px;
+      }
+
+      .hero h1 {
+        font-size: clamp(3rem, 15vw, 4.7rem);
+      }
+
+      .hero-text {
+        font-size: .92rem;
+      }
+
+      .search-panel {
+        grid-template-columns: 1fr;
+        border-radius: 15px;
+      }
+
+      .search-field {
+        border-right: 0;
+      }
+
+      .search-btn {
+        min-height: 50px;
+      }
+
+      .trust-inner {
+        grid-template-columns: 1fr;
+        padding: 20px 0;
+      }
+
+      .trust-item {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        padding: 14px;
+      }
+
+      .trust-item:last-child {
+        border-bottom: 0;
+      }
+
+      section {
+        padding: 75px 0;
+      }
+
+      .section-heading {
+        display: block;
+      }
+
+      .section-heading h2 {
+        margin-bottom: 18px;
+      }
+
+      .property-grid,
+      .category-grid,
+      .location-list,
+      .features-list {
+        grid-template-columns: 1fr;
+      }
+
+      .property-card,
+      .property-card.small {
+        min-height: 410px;
+      }
+
+      .property-card:first-child {
+        grid-column: auto;
+      }
+
+      .story-image {
+        height: 390px;
+      }
+
+      .cta {
+        padding-bottom: 75px;
+      }
+
+      .cta-box {
+        min-height: 470px;
+        padding: 30px;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: end;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" id="mainNav">
+
+        <a href="index.html" class="logo">
+          <span class="logo-mark">H</span>
+          Havenly
+        </a>
+
+        <div class="nav-links">
+          <a href="#properties">Properties</a>
+          <a href="#categories">Explore</a>
+          <a href="#locations">Locations</a>
+          <a href="#about">About</a>
+        </div>
+
+        <div class="nav-actions">
+          <a href="#" class="signin" data-demo>Sign in</a>
+          <a href="#" class="list-btn" data-demo>List your property</a>
+        </div>
+
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+
+          <div class="eyebrow">Find your next place</div>
+
+          <h1>A place that feels like home.</h1>
+
+          <p class="hero-text">
+            Discover thoughtfully selected homes, apartments and villas
+            in places worth living.
+          </p>
+
+          <form class="search-panel" id="searchForm">
+
+            <div class="search-field">
+              <label for="location">Location</label>
+              <input id="location" type="text" placeholder="City or neighborhood">
+            </div>
+
+            <div class="search-field">
+              <label for="type">Property type</label>
+              <select id="type">
+                <option value="">Any type</option>
+                <option>Apartment</option>
+                <option>House</option>
+                <option>Villa</option>
+                <option>Studio</option>
+              </select>
+            </div>
+
+            <div class="search-field">
+              <label for="price">Budget</label>
+              <select id="price">
+                <option value="">Any budget</option>
+                <option>Under $1,000</option>
+                <option>$1,000 – $2,000</option>
+                <option>$2,000 – $4,000</option>
+                <option>$4,000+</option>
+              </select>
+            </div>
+
+            <div class="search-field">
+              <label for="beds">Bedrooms</label>
+              <select id="beds">
+                <option value="">Any</option>
+                <option>1 bedroom</option>
+                <option>2 bedrooms</option>
+                <option>3 bedrooms</option>
+                <option>4+ bedrooms</option>
+              </select>
+            </div>
+
+            <button class="search-btn" type="submit">Search homes</button>
+
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST -->
+    <section class="trust-strip">
+      <div class="container trust-inner">
+        <div class="trust-item">
+          <strong>2,400+</strong>
+          <span>Curated properties</span>
+        </div>
+
+        <div class="trust-item">
+          <strong>18 cities</strong>
+          <span>Growing destinations</span>
+        </div>
+
+        <div class="trust-item">
+          <strong>4.9 / 5</strong>
+          <span>Community rating</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROPERTIES -->
+    <section class="properties" id="properties">
+      <div class="container">
+
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Selected for you</div>
+            <h2>Spaces worth coming home to.</h2>
+          </div>
+
+          <a href="#" class="text-link" data-demo>
+            View all properties <span>→</span>
+          </a>
+        </div>
+
+        <div class="property-grid">
+
+          <article class="property-card">
+            <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1400&q=85" alt="Modern luxury house">
+            <button class="favorite" aria-label="Save property" data-favorite>♡</button>
+
+            <div class="property-overlay">
+              <span class="tag">Featured</span>
+              <h3>The Glass House</h3>
+              <p class="property-location">Beverly Hills, Los Angeles</p>
+
+              <div class="property-meta">
+                <span>4 Beds</span>
+                <span>3 Baths</span>
+                <span>2,840 sq ft</span>
+              </div>
+
+              <div class="property-price">$5,800 / month</div>
+            </div>
+          </article>
+
+          <article class="property-card small">
+            <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1100&q=85" alt="Elegant apartment interior">
+            <button class="favorite" aria-label="Save property" data-favorite>♡</button>
+
+            <div class="property-overlay">
+              <span class="tag">New</span>
+              <h3>Oak & Stone</h3>
+              <p class="property-location">Austin, Texas</p>
+
+              <div class="property-meta">
+                <span>2 Beds</span>
+                <span>2 Baths</span>
+              </div>
+
+              <div class="property-price">$2,450 / month</div>
+            </div>
+          </article>
+
+          <article class="property-card small">
+            <img src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1100&q=85" alt="Modern living room">
+            <button class="favorite" aria-label="Save property" data-favorite>♡</button>
+
+            <div class="property-overlay">
+              <span class="tag">Popular</span>
+              <h3>Casa Verde</h3>
+              <p class="property-location">Miami, Florida</p>
+
+              <div class="property-meta">
+                <span>3 Beds</span>
+                <span>2 Baths</span>
+              </div>
+
+              <div class="property-price">$3,200 / month</div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="categories" id="categories">
+      <div class="container">
+
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Explore by lifestyle</div>
+            <h2>Find a space that matches the way you live.</h2>
+          </div>
+
+          <p>
+            From compact city studios to spacious family homes,
+            explore different ways of living.
+          </p>
+        </div>
+
+        <div class="category-grid">
+
+          <a href="#" class="category" data-demo>
+            <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=85" alt="Luxury villas">
+            <div class="category-content">
+              <h3>Villas</h3>
+              <span>Private spaces with room to breathe</span>
+            </div>
+          </a>
+
+          <a href="#" class="category" data-demo>
+            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=85" alt="Modern apartments">
+            <div class="category-content">
+              <h3>Apartments</h3>
+              <span>City living made simple</span>
+            </div>
+          </a>
+
+          <a href="#" class="category" data-demo>
+            <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=85" alt="Family houses">
+            <div class="category-content">
+              <h3>Family Homes</h3>
+              <span>More space for what matters</span>
+            </div>
+          </a>
+
+          <a href="#" class="category" data-demo>
+            <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=900&q=85" alt="Interior spaces">
+            <div class="category-content">
+              <h3>Furnished</h3>
+              <span>Move in without the hassle</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- STORY -->
+    <section class="story" id="about">
+      <div class="container story-grid">
+
+        <div class="story-image">
+          <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1300&q=85" alt="Beautiful modern home interior">
+        </div>
+
+        <div class="story-copy">
+
+          <div class="eyebrow">The Havenly approach</div>
+
+          <h2>Less searching. More finding.</h2>
+
+          <p>
+            Havenly is built around a simple idea: finding a home should feel
+            inspiring, not exhausting. We bring thoughtful properties together
+            in one clear, easy-to-explore experience.
+          </p>
+
+          <div class="features-list">
+
+            <div class="feature">
+              <strong>Curated homes</strong>
+              <span>Properties selected for quality and character.</span>
+            </div>
+
+            <div class="feature">
+              <strong>Clear details</strong>
+              <span>See the information that matters before you visit.</span>
+            </div>
+
+            <div class="feature">
+              <strong>Smart discovery</strong>
+              <span>Find options based on the way you want to live.</span>
+            </div>
+
+            <div class="feature">
+              <strong>Human support</strong>
+              <span>Helpful guidance whenever you need it.</span>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCATIONS -->
+    <section class="locations" id="locations">
+      <div class="container">
+
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Where to next?</div>
+            <h2>Popular places to start your search.</h2>
+          </div>
+
+          <p>
+            Explore destinations with a growing collection of homes
+            and apartments.
+          </p>
+        </div>
+
+        <div class="location-list">
+
+          <a href="#" class="location-card" data-demo>
+            <small>California</small>
+            <h3>Los Angeles →</h3>
+          </a>
+
+          <a href="#" class="location-card" data-demo>
+            <small>Texas</small>
+            <h3>Austin →</h3>
+          </a>
+
+          <a href="#" class="location-card" data-demo>
+            <small>Florida</small>
+            <h3>Miami →</h3>
+          </a>
+
+          <a href="#" class="location-card" data-demo>
+            <small>New York</small>
+            <h3>Brooklyn →</h3>
+          </a>
+
+          <a href="#" class="location-card" data-demo>
+            <small>Arizona</small>
+            <h3>Scottsdale →</h3>
+          </a>
+
+          <a href="#" class="location-card" data-demo>
+            <small>Washington</small>
+            <h3>Seattle →</h3>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIAL -->
+    <section class="testimonial">
+      <div class="container">
+
+        <div class="quote-box">
+
+          <div class="quote-mark">“</div>
+
+          <blockquote>
+            “The search finally felt simple. I found a place I loved
+            before I even realized how much time I had saved.”
+          </blockquote>
+
+          <div class="quote-author">
+            — Maya R. · Havenly community member
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <div class="container">
+
+        <div class="cta-box">
+          <h2>Your next chapter could start here.</h2>
+          <a href="#properties" class="cta-btn">Explore homes</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+
+      <div class="footer-top">
+
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <span class="logo-mark">H</span>
+            Havenly
+          </a>
+
+          <p>
+            A modern property discovery platform concept designed
+            to make finding your next home feel effortless.
+          </p>
+        </div>
+
+        <div class="footer-column">
+          <h4>Explore</h4>
+          <a href="#properties">Properties</a>
+          <a href="#categories">Categories</a>
+          <a href="#locations">Locations</a>
+          <a href="#" data-demo>Saved homes</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>Company</h4>
+          <a href="#about">About Havenly</a>
+          <a href="#" data-demo>Careers</a>
+          <a href="#" data-demo>Journal</a>
+          <a href="#" data-demo>Contact</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>For owners</h4>
+          <a href="#" data-demo>List a property</a>
+          <a href="#" data-demo>Owner resources</a>
+          <a href="#" data-demo>Pricing</a>
+          <a href="#" data-demo>Help center</a>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Havenly. Portfolio demo concept.</span>
+        <span>Not a real property marketplace.</span>
+      </div>
+
+    </div>
+  </footer>
+
+  <div class="toast" id="toast">
+    This feature is part of the Havenly portfolio demo.
+  </div>
+
+  <script>
+    const toast = document.getElementById("toast");
+    const searchForm = document.getElementById("searchForm");
+    const menuBtn = document.getElementById("menuBtn");
+    const mainNav = document.getElementById("mainNav");
+
+    let toastTimer;
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      clearTimeout(toastTimer);
+
+      toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2800);
+    }
+
+    document.querySelectorAll("[data-demo]").forEach(element => {
+      element.addEventListener("click", event => {
+        event.preventDefault();
+        showToast("This feature is part of the Havenly portfolio demo.");
+      });
+    });
+
+    document.querySelectorAll("[data-favorite]").forEach(button => {
+      button.addEventListener("click", event => {
+        event.preventDefault();
+
+        if (button.textContent.trim() === "♡") {
+          button.textContent = "♥";
+          showToast("Property saved in this demo.");
+        } else {
+          button.textContent = "♡";
+          showToast("Property removed from saved homes.");
+        }
+      });
+    });
+
+    searchForm.addEventListener("submit", event => {
+      event.preventDefault();
+
+      const location = document.getElementById("location").value.trim();
+      const type = document.getElementById("type").value;
+
+      if (!location && !type) {
+        showToast("Choose a location or property type to search.");
+        return;
+      }
+
+      showToast("Search results are part of the Havenly demo.");
+    });
+
+    menuBtn.addEventListener("click", () => {
+      mainNav.classList.toggle("mobile-open");
+
+      menuBtn.textContent =
+        mainNav.classList.contains("mobile-open") ? "×" : "☰";
+    });
+
+    document.querySelectorAll(".nav-links a").forEach(link => {
+      link.addEventListener("click", () => {
+        mainNav.classList.remove("mobile-open");
+        menuBtn.textContent = "☰";
+      });
+    });
+  </script>
+
+</body>
+  </html>
