@@ -9,6 +9,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -21,6 +22,7 @@
       --muted: #777a73;
       --line: #dedbd2;
       --accent: #c79b62;
+      --danger: #8d4545;
       --shadow: 0 18px 45px rgba(20, 21, 19, .08);
       --radius: 20px;
     }
@@ -42,6 +44,10 @@
       line-height: 1.6;
     }
 
+    body.menu-open {
+      overflow: hidden;
+    }
+
     a {
       color: inherit;
       text-decoration: none;
@@ -51,6 +57,10 @@
     input,
     select {
       font: inherit;
+    }
+
+    button {
+      cursor: pointer;
     }
 
     img {
@@ -63,14 +73,16 @@
       margin: auto;
     }
 
-    /* HEADER */
+    /* =========================
+       HEADER
+    ========================= */
 
     .site-header {
       background: var(--dark);
       color: #fff;
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: 100;
       border-bottom: 1px solid rgba(255,255,255,.08);
     }
 
@@ -114,11 +126,28 @@
 
     .nav-links a {
       transition: .2s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -7px;
+      width: 0;
+      height: 1px;
+      background: #fff;
+      transition: .25s ease;
     }
 
     .nav-links a:hover,
     .nav-links a.active {
       color: #fff;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
     }
 
     .nav-actions {
@@ -139,6 +168,8 @@
       padding: 10px 16px;
       font-size: .78rem;
       transition: .25s ease;
+      background: transparent;
+      color: #fff;
     }
 
     .list-btn:hover {
@@ -152,10 +183,11 @@
       background: transparent;
       color: #fff;
       font-size: 1.7rem;
-      cursor: pointer;
     }
 
-    /* PAGE HERO */
+    /* =========================
+       HERO
+    ========================= */
 
     .page-hero {
       background: var(--dark);
@@ -203,7 +235,9 @@
       font-size: .95rem;
     }
 
-    /* FILTER AREA */
+    /* =========================
+       FILTER AREA
+    ========================= */
 
     .filter-section {
       margin-top: -42px;
@@ -250,13 +284,16 @@
       font-size: .86rem;
     }
 
+    .filter-field input::placeholder {
+      color: #999b95;
+    }
+
     .filter-submit {
       border: 0;
       background: var(--dark);
       color: #fff;
       min-width: 115px;
       border-radius: 14px;
-      cursor: pointer;
       font-weight: 600;
       transition: .25s ease;
     }
@@ -288,7 +325,6 @@
       border-radius: 999px;
       color: #555851;
       font-size: .75rem;
-      cursor: pointer;
       transition: .2s ease;
     }
 
@@ -305,7 +341,9 @@
       white-space: nowrap;
     }
 
-    /* PROPERTY SECTION */
+    /* =========================
+       RESULTS
+    ========================= */
 
     .property-section {
       padding: 75px 0 110px;
@@ -323,6 +361,12 @@
       font-family: "Playfair Display", serif;
       font-size: 2.35rem;
       line-height: 1;
+    }
+
+    .results-subtitle {
+      color: var(--muted);
+      font-size: .78rem;
+      margin-top: 8px;
     }
 
     .sort-select {
@@ -352,6 +396,14 @@
     .property-card:hover {
       transform: translateY(-5px);
       box-shadow: var(--shadow);
+    }
+
+    .property-card.hidden-by-load {
+      display: none;
+    }
+
+    .property-card.filtered-out {
+      display: none;
     }
 
     .property-image {
@@ -395,6 +447,10 @@
       cursor: pointer;
       font-size: 1rem;
       transition: .2s ease;
+    }
+
+    .favorite:hover {
+      transform: scale(1.08);
     }
 
     .favorite.saved {
@@ -446,9 +502,17 @@
       font-size: .76rem;
       font-weight: 700;
       border-bottom: 1px solid var(--dark);
+      transition: .2s ease;
     }
 
-    /* NO RESULTS */
+    .view-btn:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* =========================
+       NO RESULTS
+    ========================= */
 
     .no-results {
       display: none;
@@ -467,7 +531,25 @@
       margin-bottom: 7px;
     }
 
-    /* LOAD MORE */
+    .reset-search {
+      margin-top: 20px;
+      border: 1px solid var(--dark);
+      background: var(--dark);
+      color: #fff;
+      padding: 11px 18px;
+      border-radius: 999px;
+      font-size: .78rem;
+      font-weight: 700;
+    }
+
+    .reset-search:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* =========================
+       LOAD MORE
+    ========================= */
 
     .load-more-wrap {
       text-align: center;
@@ -480,7 +562,6 @@
       color: var(--dark);
       border-radius: 999px;
       padding: 13px 24px;
-      cursor: pointer;
       font-weight: 700;
       font-size: .8rem;
       transition: .25s ease;
@@ -491,7 +572,14 @@
       color: #fff;
     }
 
-    /* AI TEASER */
+    .load-more:disabled {
+      opacity: .5;
+      cursor: default;
+    }
+
+    /* =========================
+       AI
+    ========================= */
 
     .ai-section {
       background: var(--dark);
@@ -571,17 +659,22 @@
       outline: 0;
     }
 
+    .ai-input input:focus {
+      border-color: var(--accent);
+    }
+
     .ai-input button {
       border: 0;
       border-radius: 11px;
       background: var(--accent);
       color: #fff;
       padding: 0 18px;
-      cursor: pointer;
       font-weight: 700;
     }
 
-    /* FOOTER */
+    /* =========================
+       FOOTER
+    ========================= */
 
     footer {
       background: #111210;
@@ -633,7 +726,9 @@
       font-size: .7rem;
     }
 
-    /* TOAST */
+    /* =========================
+       TOAST
+    ========================= */
 
     .toast {
       position: fixed;
@@ -647,9 +742,10 @@
       font-size: .78rem;
       opacity: 0;
       transition: .3s ease;
-      z-index: 100;
+      z-index: 500;
       pointer-events: none;
-      box-shadow: var(--shadow);
+      box-shadow: 0 15px 40px rgba(0,0,0,.25);
+      text-align: center;
     }
 
     .toast.show {
@@ -657,9 +753,12 @@
       transform: translate(-50%, 0);
     }
 
-    /* RESPONSIVE */
+    /* =========================
+       RESPONSIVE
+    ========================= */
 
     @media (max-width: 1000px) {
+
       .nav {
         grid-template-columns: 1fr auto;
       }
@@ -727,6 +826,7 @@
     }
 
     @media (max-width: 650px) {
+
       .container {
         width: min(100% - 28px, 1180px);
       }
@@ -786,14 +886,26 @@
       .footer-bottom {
         flex-direction: column;
       }
+
+      .ai-input {
+        flex-direction: column;
+      }
+
+      .ai-input button {
+        min-height: 46px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
+  <!-- =========================
+       HEADER
+  ========================= -->
+
   <header class="site-header">
+
     <div class="container">
 
       <nav class="nav" id="mainNav">
@@ -804,31 +916,71 @@
         </a>
 
         <div class="nav-links">
-          <a href="properties.html" class="active">Properties</a>
-          <a href="#ai">AI Assistant</a>
-          <a href="index.html#locations">Locations</a>
-          <a href="index.html#about">About</a>
+
+          <a href="properties.html" class="active">
+            Properties
+          </a>
+
+          <a href="#ai">
+            AI Assistant
+          </a>
+
+          <a href="locations.html">
+            Locations
+          </a>
+
+          <a href="about.html">
+            About
+          </a>
+
         </div>
 
         <div class="nav-actions">
-          <a href="#" class="signin" data-demo>Sign in</a>
-          <a href="#" class="list-btn" data-demo>List your property</a>
+
+          <a href="#" class="signin" id="signInBtn">
+            Sign in
+          </a>
+
+          <button class="list-btn" id="listPropertyBtn">
+            List your property
+          </button>
+
         </div>
 
-        <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+        <button
+          class="menu-btn"
+          id="menuBtn"
+          aria-label="Open menu"
+          aria-expanded="false"
+        >
+          ☰
+        </button>
 
       </nav>
 
     </div>
+
   </header>
 
-  <!-- HERO -->
+
+  <!-- =========================
+       HERO
+  ========================= -->
+
   <section class="page-hero">
+
     <div class="container hero-grid">
 
       <div>
-        <div class="eyebrow">The Havenly collection</div>
-        <h1>Find the space that fits your life.</h1>
+
+        <div class="eyebrow">
+          The Havenly collection
+        </div>
+
+        <h1>
+          Find the space that fits your life.
+        </h1>
+
       </div>
 
       <p class="hero-copy">
@@ -837,10 +989,16 @@
       </p>
 
     </div>
+
   </section>
 
-  <!-- FILTER -->
+
+  <!-- =========================
+       FILTER
+  ========================= -->
+
   <div class="filter-section">
+
     <div class="container">
 
       <form class="filter-box" id="propertyFilter">
@@ -848,106 +1006,283 @@
         <div class="filter-main">
 
           <div class="filter-field">
-            <label for="searchLocation">Where</label>
+
+            <label for="searchLocation">
+              Where
+            </label>
+
             <input
               id="searchLocation"
               type="text"
               placeholder="City, neighborhood or property"
+              autocomplete="off"
             >
+
           </div>
 
+
           <div class="filter-field">
-            <label for="propertyType">Property type</label>
+
+            <label for="propertyType">
+              Property type
+            </label>
+
             <select id="propertyType">
-              <option value="all">All types</option>
-              <option value="apartment">Apartment</option>
-              <option value="villa">Villa</option>
-              <option value="house">House</option>
-              <option value="studio">Studio</option>
+
+              <option value="all">
+                All types
+              </option>
+
+              <option value="apartment">
+                Apartment
+              </option>
+
+              <option value="villa">
+                Villa
+              </option>
+
+              <option value="house">
+                House
+              </option>
+
+              <option value="studio">
+                Studio
+              </option>
+
             </select>
+
           </div>
 
+
           <div class="filter-field">
-            <label for="budget">Monthly budget</label>
+
+            <label for="budget">
+              Monthly budget
+            </label>
+
             <select id="budget">
-              <option value="all">Any budget</option>
-              <option value="low">Under $2,000</option>
-              <option value="mid">$2,000 – $4,000</option>
-              <option value="high">$4,000+</option>
+
+              <option value="all">
+                Any budget
+              </option>
+
+              <option value="low">
+                Under $2,000
+              </option>
+
+              <option value="mid">
+                $2,000 – $4,000
+              </option>
+
+              <option value="high">
+                $4,000+
+              </option>
+
             </select>
+
           </div>
+
 
           <div class="filter-field">
-            <label for="bedrooms">Bedrooms</label>
+
+            <label for="bedrooms">
+              Bedrooms
+            </label>
+
             <select id="bedrooms">
-              <option value="all">Any number</option>
-              <option value="1">1 bedroom</option>
-              <option value="2">2 bedrooms</option>
-              <option value="3">3 bedrooms</option>
-              <option value="4">4+ bedrooms</option>
+
+              <option value="all">
+                Any number
+              </option>
+
+              <option value="1">
+                1 bedroom
+              </option>
+
+              <option value="2">
+                2 bedrooms
+              </option>
+
+              <option value="3">
+                3 bedrooms
+              </option>
+
+              <option value="4">
+                4+ bedrooms
+              </option>
+
             </select>
+
           </div>
 
-          <button class="filter-submit" type="submit">Search</button>
+
+          <button
+            class="filter-submit"
+            type="submit"
+          >
+            Search
+          </button>
 
         </div>
+
 
         <div class="advanced-row">
 
           <div class="advanced-options">
-            <button type="button" class="filter-chip active" data-feature="all">All</button>
-            <button type="button" class="filter-chip" data-feature="furnished">Furnished</button>
-            <button type="button" class="filter-chip" data-feature="pet">Pet friendly</button>
-            <button type="button" class="filter-chip" data-feature="parking">Parking</button>
-            <button type="button" class="filter-chip" data-feature="pool">Pool</button>
+
+            <button
+              type="button"
+              class="filter-chip active"
+              data-feature="all"
+            >
+              All
+            </button>
+
+            <button
+              type="button"
+              class="filter-chip"
+              data-feature="furnished"
+            >
+              Furnished
+            </button>
+
+            <button
+              type="button"
+              class="filter-chip"
+              data-feature="pet"
+            >
+              Pet friendly
+            </button>
+
+            <button
+              type="button"
+              class="filter-chip"
+              data-feature="parking"
+            >
+              Parking
+            </button>
+
+            <button
+              type="button"
+              class="filter-chip"
+              data-feature="pool"
+            >
+              Pool
+            </button>
+
           </div>
 
-          <span class="result-count" id="resultCount">6 properties</span>
+          <span
+            class="result-count"
+            id="resultCount"
+          >
+            12 properties
+          </span>
 
         </div>
 
       </form>
 
     </div>
+
   </div>
 
-  <!-- PROPERTIES -->
+
+  <!-- =========================
+       PROPERTY RESULTS
+  ========================= -->
+
   <main class="property-section">
+
     <div class="container">
 
       <div class="results-top">
-        <h2>Available spaces</h2>
 
-        <select class="sort-select" id="sortSelect">
-          <option value="featured">Sort: Featured</option>
-          <option value="price-low">Price: Low to high</option>
-          <option value="price-high">Price: High to low</option>
+        <div>
+
+          <h2>
+            Available spaces
+          </h2>
+
+          <p class="results-subtitle">
+            Curated homes for the way you want to live.
+          </p>
+
+        </div>
+
+
+        <select
+          class="sort-select"
+          id="sortSelect"
+          aria-label="Sort properties"
+        >
+
+          <option value="featured">
+            Sort: Featured
+          </option>
+
+          <option value="price-low">
+            Price: Low to high
+          </option>
+
+          <option value="price-high">
+            Price: High to low
+          </option>
+
         </select>
+
       </div>
 
-      <div class="property-grid" id="propertyGrid">
+
+      <div
+        class="property-grid"
+        id="propertyGrid"
+      >
+
 
         <!-- PROPERTY 1 -->
+
         <article
           class="property-card"
           data-type="villa"
           data-price="5800"
           data-bedrooms="4"
-          data-location="Beverly Hills Los Angeles"
+          data-location="Beverly Hills Los Angeles California"
           data-features="furnished parking pool"
+          data-featured="1"
         >
+
           <div class="property-image">
+
             <img
               src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85"
               alt="Luxury villa in Beverly Hills"
+              loading="lazy"
             >
-            <span class="property-tag">Featured</span>
-            <button class="favorite" data-favorite aria-label="Save property">♡</button>
+
+            <span class="property-tag">
+              Featured
+            </span>
+
+            <button
+              class="favorite"
+              data-favorite
+              aria-label="Save The Glass House"
+            >
+              ♡
+            </button>
+
           </div>
 
           <div class="property-info">
-            <h3>The Glass House</h3>
-            <p class="location">Beverly Hills, Los Angeles</p>
+
+            <h3>
+              The Glass House
+            </h3>
+
+            <p class="location">
+              Beverly Hills, Los Angeles
+            </p>
 
             <div class="details">
               <span>4 beds</span>
@@ -956,13 +1291,27 @@
             </div>
 
             <div class="price-row">
-              <span class="price">$5,800 / month</span>
-              <a href="#" class="view-btn" data-demo>View property</a>
+
+              <span class="price">
+                $5,800 / month
+              </span>
+
+              <a
+                href="property.html"
+                class="view-btn"
+              >
+                View property
+              </a>
+
             </div>
+
           </div>
+
         </article>
 
+
         <!-- PROPERTY 2 -->
+
         <article
           class="property-card"
           data-type="apartment"
@@ -970,19 +1319,40 @@
           data-bedrooms="2"
           data-location="Austin Texas"
           data-features="furnished parking"
+          data-featured="2"
         >
+
           <div class="property-image">
+
             <img
               src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=85"
-              alt="Elegant apartment interior"
+              alt="Elegant apartment interior in Austin"
+              loading="lazy"
             >
-            <span class="property-tag">New</span>
-            <button class="favorite" data-favorite aria-label="Save property">♡</button>
+
+            <span class="property-tag">
+              New
+            </span>
+
+            <button
+              class="favorite"
+              data-favorite
+              aria-label="Save Oak and Stone"
+            >
+              ♡
+            </button>
+
           </div>
 
           <div class="property-info">
-            <h3>Oak & Stone</h3>
-            <p class="location">Austin, Texas</p>
+
+            <h3>
+              Oak & Stone
+            </h3>
+
+            <p class="location">
+              Austin, Texas
+            </p>
 
             <div class="details">
               <span>2 beds</span>
@@ -991,13 +1361,27 @@
             </div>
 
             <div class="price-row">
-              <span class="price">$2,450 / month</span>
-              <a href="#" class="view-btn" data-demo>View property</a>
+
+              <span class="price">
+                $2,450 / month
+              </span>
+
+              <a
+                href="property.html"
+                class="view-btn"
+              >
+                View property
+              </a>
+
             </div>
+
           </div>
+
         </article>
 
+
         <!-- PROPERTY 3 -->
+
         <article
           class="property-card"
           data-type="house"
@@ -1005,19 +1389,40 @@
           data-bedrooms="3"
           data-location="Miami Florida"
           data-features="furnished pool"
+          data-featured="3"
         >
+
           <div class="property-image">
+
             <img
               src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1200&q=85"
               alt="Modern house in Miami"
+              loading="lazy"
             >
-            <span class="property-tag">Popular</span>
-            <button class="favorite" data-favorite aria-label="Save property">♡</button>
+
+            <span class="property-tag">
+              Popular
+            </span>
+
+            <button
+              class="favorite"
+              data-favorite
+              aria-label="Save Casa Verde"
+            >
+              ♡
+            </button>
+
           </div>
 
           <div class="property-info">
-            <h3>Casa Verde</h3>
-            <p class="location">Miami, Florida</p>
+
+            <h3>
+              Casa Verde
+            </h3>
+
+            <p class="location">
+              Miami, Florida
+            </p>
 
             <div class="details">
               <span>3 beds</span>
@@ -1026,13 +1431,27 @@
             </div>
 
             <div class="price-row">
-              <span class="price">$3,200 / month</span>
-              <a href="#" class="view-btn" data-demo>View property</a>
+
+              <span class="price">
+                $3,200 / month
+              </span>
+
+              <a
+                href="property.html"
+                class="view-btn"
+              >
+                View property
+              </a>
+
             </div>
+
           </div>
+
         </article>
 
+
         <!-- PROPERTY 4 -->
+
         <article
           class="property-card"
           data-type="apartment"
@@ -1040,19 +1459,40 @@
           data-bedrooms="1"
           data-location="Brooklyn New York"
           data-features="furnished pet"
+          data-featured="4"
         >
+
           <div class="property-image">
+
             <img
               src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=85"
               alt="Modern Brooklyn apartment"
+              loading="lazy"
             >
-            <span class="property-tag">City living</span>
-            <button class="favorite" data-favorite aria-label="Save property">♡</button>
+
+            <span class="property-tag">
+              City living
+            </span>
+
+            <button
+              class="favorite"
+              data-favorite
+              aria-label="Save Parkline Loft"
+            >
+              ♡
+            </button>
+
           </div>
 
           <div class="property-info">
-            <h3>Parkline Loft</h3>
-            <p class="location">Brooklyn, New York</p>
+
+            <h3>
+              Parkline Loft
+            </h3>
+
+            <p class="location">
+              Brooklyn, New York
+            </p>
 
             <div class="details">
               <span>1 bed</span>
@@ -1061,13 +1501,27 @@
             </div>
 
             <div class="price-row">
-              <span class="price">$1,850 / month</span>
-              <a href="#" class="view-btn" data-demo>View property</a>
+
+              <span class="price">
+                $1,850 / month
+              </span>
+
+              <a
+                href="property.html"
+                class="view-btn"
+              >
+                View property
+              </a>
+
             </div>
+
           </div>
+
         </article>
 
+
         <!-- PROPERTY 5 -->
+
         <article
           class="property-card"
           data-type="villa"
@@ -1075,19 +1529,40 @@
           data-bedrooms="4"
           data-location="Scottsdale Arizona"
           data-features="parking pool pet"
+          data-featured="5"
         >
+
           <div class="property-image">
+
             <img
               src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=85"
               alt="Modern villa in Scottsdale"
+              loading="lazy"
             >
-            <span class="property-tag">Premium</span>
-            <button class="favorite" data-favorite aria-label="Save property">♡</button>
+
+            <span class="property-tag">
+              Premium
+            </span>
+
+            <button
+              class="favorite"
+              data-favorite
+              aria-label="Save Desert Horizon"
+            >
+              ♡
+            </button>
+
           </div>
 
           <div class="property-info">
-            <h3>Desert Horizon</h3>
-            <p class="location">Scottsdale, Arizona</p>
+
+            <h3>
+              Desert Horizon
+            </h3>
+
+            <p class="location">
+              Scottsdale, Arizona
+            </p>
 
             <div class="details">
               <span>4 beds</span>
@@ -1096,13 +1571,27 @@
             </div>
 
             <div class="price-row">
-              <span class="price">$7,200 / month</span>
-              <a href="#" class="view-btn" data-demo>View property</a>
+
+              <span class="price">
+                $7,200 / month
+              </span>
+
+              <a
+                href="property.html"
+                class="view-btn"
+              >
+                View property
+              </a>
+
             </div>
+
           </div>
+
         </article>
 
+
         <!-- PROPERTY 6 -->
+
         <article
           class="property-card"
           data-type="studio"
@@ -1110,19 +1599,40 @@
           data-bedrooms="1"
           data-location="Seattle Washington"
           data-features="furnished pet parking"
+          data-featured="6"
         >
+
           <div class="property-image">
+
             <img
               src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=85"
-              alt="Bright studio apartment"
+              alt="Bright studio apartment in Seattle"
+              loading="lazy"
             >
-            <span class="property-tag">Smart choice</span>
-            <button class="favorite" data-favorite aria-label="Save property">♡</button>
+
+            <span class="property-tag">
+              Smart choice
+            </span>
+
+            <button
+              class="favorite"
+              data-favorite
+              aria-label="Save Northline Studio"
+            >
+              ♡
+            </button>
+
           </div>
 
           <div class="property-info">
-            <h3>Northline Studio</h3>
-            <p class="location">Seattle, Washington</p>
+
+            <h3>
+              Northline Studio
+            </h3>
+
+            <p class="location">
+              Seattle, Washington
+            </p>
 
             <div class="details">
               <span>1 bed</span>
@@ -1131,43 +1641,501 @@
             </div>
 
             <div class="price-row">
-              <span class="price">$1,450 / month</span>
-              <a href="#" class="view-btn" data-demo>View property</a>
+
+              <span class="price">
+                $1,450 / month
+              </span>
+
+              <a
+                href="property.html"
+                class="view-btn"
+              >
+                View property
+              </a>
+
             </div>
+
           </div>
+
         </article>
 
+
+        <!-- PROPERTY 7 -->
+
+        <article
+          class="property-card hidden-by-load"
+          data-type="apartment"
+          data-price="2850"
+          data-bedrooms="2"
+          data-location="Chicago Illinois"
+          data-features="furnished parking pet"
+          data-featured="7"
+        >
+
+          <div class="property-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1502672023488-70e25813eb80?auto=format&fit=crop&w=1200&q=85"
+              alt="Modern apartment in Chicago"
+              loading="lazy"
+            >
+
+            <span class="property-tag">
+              Downtown
+            </span>
+
+            <button
+              class="favorite"
+              data-favorite
+              aria-label="Save The Mercer Apartment"
+            >
+              ♡
+            </button>
+
+          </div>
+
+          <div class="property-info">
+
+            <h3>
+              The Mercer
+            </h3>
+
+            <p class="location">
+              Chicago, Illinois
+            </p>
+
+            <div class="details">
+              <span>2 beds</span>
+              <span>2 baths</span>
+              <span>1,510 sq ft</span>
+            </div>
+
+            <div class="price-row">
+
+              <span class="price">
+                $2,850 / month
+              </span>
+
+              <a href="property.html" class="view-btn">
+                View property
+              </a>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- PROPERTY 8 -->
+
+        <article
+          class="property-card hidden-by-load"
+          data-type="house"
+          data-price="3950"
+          data-bedrooms="3"
+          data-location="Portland Oregon"
+          data-features="furnished pet parking"
+          data-featured="8"
+        >
+
+          <div class="property-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&fit=crop&w=1200&q=85"
+              alt="Contemporary house in Portland"
+              loading="lazy"
+            >
+
+            <span class="property-tag">
+              Quiet living
+            </span>
+
+            <button
+              class="favorite"
+              data-favorite
+              aria-label="Save Cedar House"
+            >
+              ♡
+            </button>
+
+          </div>
+
+          <div class="property-info">
+
+            <h3>
+              Cedar House
+            </h3>
+
+            <p class="location">
+              Portland, Oregon
+            </p>
+
+            <div class="details">
+              <span>3 beds</span>
+              <span>2 baths</span>
+              <span>2,080 sq ft</span>
+            </div>
+
+            <div class="price-row">
+
+              <span class="price">
+                $3,950 / month
+              </span>
+
+              <a href="property.html" class="view-btn">
+                View property
+              </a>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- PROPERTY 9 -->
+
+        <article
+          class="property-card hidden-by-load"
+          data-type="villa"
+          data-price="6400"
+          data-bedrooms="3"
+          data-location="San Diego California"
+          data-features="furnished parking pool"
+          data-featured="9"
+        >
+
+          <div class="property-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1605146769289-440113cc3d00?auto=format&fit=crop&w=1200&q=85"
+              alt="Luxury villa in San Diego"
+              loading="lazy"
+            >
+
+            <span class="property-tag">
+              Coastal
+            </span>
+
+            <button
+              class="favorite"
+              data-favorite
+              aria-label="Save Pacific Villa"
+            >
+              ♡
+            </button>
+
+          </div>
+
+          <div class="property-info">
+
+            <h3>
+              Pacific Villa
+            </h3>
+
+            <p class="location">
+              San Diego, California
+            </p>
+
+            <div class="details">
+              <span>3 beds</span>
+              <span>3 baths</span>
+              <span>2,740 sq ft</span>
+            </div>
+
+            <div class="price-row">
+
+              <span class="price">
+                $6,400 / month
+              </span>
+
+              <a href="property.html" class="view-btn">
+                View property
+              </a>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- PROPERTY 10 -->
+
+        <article
+          class="property-card hidden-by-load"
+          data-type="apartment"
+          data-price="2100"
+          data-bedrooms="2"
+          data-location="Boston Massachusetts"
+          data-features="furnished pet"
+          data-featured="10"
+        >
+
+          <div class="property-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1200&q=85"
+              alt="Elegant Boston apartment"
+              loading="lazy"
+            >
+
+            <span class="property-tag">
+              Classic
+            </span>
+
+            <button
+              class="favorite"
+              data-favorite
+              aria-label="Save Beacon Apartment"
+            >
+              ♡
+            </button>
+
+          </div>
+
+          <div class="property-info">
+
+            <h3>
+              Beacon Apartment
+            </h3>
+
+            <p class="location">
+              Boston, Massachusetts
+            </p>
+
+            <div class="details">
+              <span>2 beds</span>
+              <span>1 bath</span>
+              <span>1,180 sq ft</span>
+            </div>
+
+            <div class="price-row">
+
+              <span class="price">
+                $2,100 / month
+              </span>
+
+              <a href="property.html" class="view-btn">
+                View property
+              </a>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- PROPERTY 11 -->
+
+        <article
+          class="property-card hidden-by-load"
+          data-type="house"
+          data-price="4400"
+          data-bedrooms="4"
+          data-location="Denver Colorado"
+          data-features="parking pet pool"
+          data-featured="11"
+        >
+
+          <div class="property-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1200&q=85"
+              alt="Spacious house in Denver"
+              loading="lazy"
+            >
+
+            <span class="property-tag">
+              Family home
+            </span>
+
+            <button
+              class="favorite"
+              data-favorite
+              aria-label="Save Aspen Residence"
+            >
+              ♡
+            </button>
+
+          </div>
+
+          <div class="property-info">
+
+            <h3>
+              Aspen Residence
+            </h3>
+
+            <p class="location">
+              Denver, Colorado
+            </p>
+
+            <div class="details">
+              <span>4 beds</span>
+              <span>3 baths</span>
+              <span>2,930 sq ft</span>
+            </div>
+
+            <div class="price-row">
+
+              <span class="price">
+                $4,400 / month
+              </span>
+
+              <a href="property.html" class="view-btn">
+                View property
+              </a>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- PROPERTY 12 -->
+
+        <article
+          class="property-card hidden-by-load"
+          data-type="studio"
+          data-price="1650"
+          data-bedrooms="1"
+          data-location="San Francisco California"
+          data-features="furnished pet"
+          data-featured="12"
+        >
+
+          <div class="property-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1536376072261-38c75010e6c9?auto=format&fit=crop&w=1200&q=85"
+              alt="Modern studio in San Francisco"
+              loading="lazy"
+            >
+
+            <span class="property-tag">
+              Compact
+            </span>
+
+            <button
+              class="favorite"
+              data-favorite
+              aria-label="Save Hayes Studio"
+            >
+              ♡
+            </button>
+
+          </div>
+
+          <div class="property-info">
+
+            <h3>
+              Hayes Studio
+            </h3>
+
+            <p class="location">
+              San Francisco, California
+            </p>
+
+            <div class="details">
+              <span>1 bed</span>
+              <span>1 bath</span>
+              <span>590 sq ft</span>
+            </div>
+
+            <div class="price-row">
+
+              <span class="price">
+                $1,650 / month
+              </span>
+
+              <a href="property.html" class="view-btn">
+                View property
+              </a>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
       </div>
 
-      <div class="no-results" id="noResults">
-        <h3>No matching properties</h3>
-        <p>Try changing your location, budget or property filters.</p>
+
+      <!-- NO RESULTS -->
+
+      <div
+        class="no-results"
+        id="noResults"
+      >
+
+        <h3>
+          No matching properties
+        </h3>
+
+        <p>
+          Try changing your location, budget or property filters.
+        </p>
+
+        <button
+          class="reset-search"
+          id="resetSearch"
+        >
+          Reset search
+        </button>
+
       </div>
+
+
+      <!-- LOAD MORE -->
 
       <div class="load-more-wrap">
-        <button class="load-more" id="loadMore">Load more properties</button>
+
+        <button
+          class="load-more"
+          id="loadMore"
+        >
+          Load more properties
+        </button>
+
       </div>
 
     </div>
+
   </main>
 
-  <!-- AI SECTION -->
-  <section class="ai-section" id="ai">
+
+  <!-- =========================
+       AI SECTION
+  ========================= -->
+
+  <section
+    class="ai-section"
+    id="ai"
+  >
+
     <div class="container ai-grid">
 
       <div>
-        <div class="ai-label">Coming next · Havenly AI</div>
+
+        <div class="ai-label">
+          Coming next · Havenly AI
+        </div>
 
         <h2>
           Tell us what you need. We'll help you find it.
         </h2>
 
         <p class="ai-copy">
-          This portfolio concept will later connect an AI assistant
-          to the property database, helping users discover homes through
-          natural conversation.
+          Havenly AI will eventually connect with the property database
+          and help users discover homes through natural conversation.
         </p>
+
       </div>
+
 
       <div class="ai-demo">
 
@@ -1181,262 +2149,1030 @@
         </div>
 
         <div class="ai-input">
-          <input id="aiInput" type="text" placeholder="Ask Havenly AI...">
-          <button id="aiSend">Send</button>
+
+          <input
+            id="aiInput"
+            type="text"
+            placeholder="Ask Havenly AI..."
+            autocomplete="off"
+          >
+
+          <button id="aiSend">
+            Send
+          </button>
+
         </div>
 
       </div>
 
     </div>
+
   </section>
 
-  <!-- FOOTER -->
+
+  <!-- =========================
+       FOOTER
+  ========================= -->
+
   <footer>
+
     <div class="container">
 
       <div class="footer-top">
 
         <div class="footer-brand">
+
           <a href="index.html" class="logo">
-            <span class="logo-mark">H</span>
+
+            <span class="logo-mark">
+              H
+            </span>
+
             Havenly
+
           </a>
 
           <p>
             A premium property discovery platform concept designed
             for a smarter, simpler search experience.
           </p>
+
         </div>
 
-        <div class="footer-column">
-          <h4>Explore</h4>
-          <a href="properties.html">Properties</a>
-          <a href="index.html#categories">Categories</a>
-          <a href="index.html#locations">Locations</a>
-          <a href="#" data-demo>Saved homes</a>
-        </div>
 
         <div class="footer-column">
-          <h4>Havenly</h4>
-          <a href="index.html#about">About</a>
-          <a href="#ai">AI Assistant</a>
-          <a href="#" data-demo>Journal</a>
-          <a href="#" data-demo>Contact</a>
+
+          <h4>
+            Explore
+          </h4>
+
+          <a href="properties.html">
+            Properties
+          </a>
+
+          <a href="locations.html">
+            Locations
+          </a>
+
+          <a href="property.html">
+            Featured home
+          </a>
+
+          <a href="#ai">
+            Havenly AI
+          </a>
+
         </div>
 
+
         <div class="footer-column">
-          <h4>Owners</h4>
-          <a href="#" data-demo>List a property</a>
-          <a href="#" data-demo>Owner resources</a>
-          <a href="#" data-demo>Pricing</a>
-          <a href="#" data-demo>Help center</a>
+
+          <h4>
+            Havenly
+          </h4>
+
+          <a href="about.html">
+            About
+          </a>
+
+          <a href="contact.html">
+            Contact
+          </a>
+
+          <a href="privacy.html">
+            Privacy
+          </a>
+
+          <a href="terms.html">
+            Terms
+          </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+          <h4>
+            Owners
+          </h4>
+
+          <a href="#" data-demo>
+            List a property
+          </a>
+
+          <a href="#" data-demo>
+            Owner resources
+          </a>
+
+          <a href="#" data-demo>
+            Pricing
+          </a>
+
+          <a href="#" data-demo>
+            Help center
+          </a>
+
         </div>
 
       </div>
 
+
       <div class="footer-bottom">
-        <span>© 2026 Havenly. Portfolio demo concept.</span>
-        <span>Not a real property marketplace.</span>
+
+        <span>
+          © 2026 Havenly. Portfolio demo concept.
+        </span>
+
+        <span>
+          Not a real property marketplace.
+        </span>
+
       </div>
 
     </div>
+
   </footer>
 
-  <div class="toast" id="toast">
-    This feature is part of the Havenly portfolio demo.
-  </div>
+
+  <!-- TOAST -->
+
+  <div
+    class="toast"
+    id="toast"
+    role="status"
+    aria-live="polite"
+  ></div>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================= -->
 
   <script>
-    const propertyFilter = document.getElementById("propertyFilter");
-    const propertyCards = [...document.querySelectorAll(".property-card")];
-    const resultCount = document.getElementById("resultCount");
-    const noResults = document.getElementById("noResults");
-    const sortSelect = document.getElementById("sortSelect");
-    const propertyGrid = document.getElementById("propertyGrid");
-    const toast = document.getElementById("toast");
-    const menuBtn = document.getElementById("menuBtn");
-    const mainNav = document.getElementById("mainNav");
-    const aiInput = document.getElementById("aiInput");
-    const aiSend = document.getElementById("aiSend");
+
+    /* =========================
+       ELEMENTS
+    ========================= */
+
+    const propertyFilter =
+      document.getElementById("propertyFilter");
+
+    const propertyGrid =
+      document.getElementById("propertyGrid");
+
+    const allCards =
+      [...document.querySelectorAll(".property-card")];
+
+    const resultCount =
+      document.getElementById("resultCount");
+
+    const noResults =
+      document.getElementById("noResults");
+
+    const sortSelect =
+      document.getElementById("sortSelect");
+
+    const loadMore =
+      document.getElementById("loadMore");
+
+    const resetSearch =
+      document.getElementById("resetSearch");
+
+    const searchLocation =
+      document.getElementById("searchLocation");
+
+    const propertyType =
+      document.getElementById("propertyType");
+
+    const budget =
+      document.getElementById("budget");
+
+    const bedrooms =
+      document.getElementById("bedrooms");
+
+    const toast =
+      document.getElementById("toast");
+
+    const menuBtn =
+      document.getElementById("menuBtn");
+
+    const mainNav =
+      document.getElementById("mainNav");
+
+    const aiInput =
+      document.getElementById("aiInput");
+
+    const aiSend =
+      document.getElementById("aiSend");
 
     let activeFeature = "all";
+
+    let visibleLimit = 6;
+
     let toastTimer;
 
+
+    /* =========================
+       TOAST
+    ========================= */
+
     function showToast(message) {
+
       toast.textContent = message;
+
       toast.classList.add("show");
 
       clearTimeout(toastTimer);
 
       toastTimer = setTimeout(() => {
+
         toast.classList.remove("show");
+
       }, 2800);
+
     }
+
+
+    /* =========================
+       PRICE FILTER
+    ========================= */
+
+    function matchesBudget(price, selectedBudget) {
+
+      if (selectedBudget === "all") {
+        return true;
+      }
+
+      if (selectedBudget === "low") {
+        return price < 2000;
+      }
+
+      if (selectedBudget === "mid") {
+        return price >= 2000 && price <= 4000;
+      }
+
+      if (selectedBudget === "high") {
+        return price > 4000;
+      }
+
+      return true;
+    }
+
+
+    /* =========================
+       PROPERTY MATCHING
+    ========================= */
+
+    function cardMatchesFilters(card) {
+
+      const locationValue =
+        searchLocation.value.trim().toLowerCase();
+
+      const selectedType =
+        propertyType.value;
+
+      const selectedBudget =
+        budget.value;
+
+      const selectedBedrooms =
+        bedrooms.value;
+
+      const cardLocation =
+        card.dataset.location.toLowerCase();
+
+      const cardType =
+        card.dataset.type;
+
+      const cardPrice =
+        Number(card.dataset.price);
+
+      const cardBedrooms =
+        Number(card.dataset.bedrooms);
+
+      const features =
+        card.dataset.features.split(" ");
+
+
+      /* LOCATION */
+
+      if (
+        locationValue &&
+        !cardLocation.includes(locationValue)
+      ) {
+        return false;
+      }
+
+
+      /* PROPERTY TYPE */
+
+      if (
+        selectedType !== "all" &&
+        cardType !== selectedType
+      ) {
+        return false;
+      }
+
+
+      /* BUDGET */
+
+      if (
+        !matchesBudget(
+          cardPrice,
+          selectedBudget
+        )
+      ) {
+        return false;
+      }
+
+
+      /* BEDROOMS */
+
+      if (selectedBedrooms !== "all") {
+
+        if (
+          selectedBedrooms === "4"
+        ) {
+
+          if (cardBedrooms < 4) {
+            return false;
+          }
+
+        } else {
+
+          if (
+            cardBedrooms !==
+            Number(selectedBedrooms)
+          ) {
+            return false;
+          }
+
+        }
+
+      }
+
+
+      /* FEATURE CHIP */
+
+      if (
+        activeFeature !== "all" &&
+        !features.includes(activeFeature)
+      ) {
+        return false;
+      }
+
+
+      return true;
+    }
+
+
+    /* =========================
+       APPLY FILTERS
+    ========================= */
 
     function applyFilters() {
-      const location = document.getElementById("searchLocation").value
-        .trim()
-        .toLowerCase();
 
-      const type = document.getElementById("propertyType").value;
-      const budget = document.getElementById("budget").value;
-      const bedrooms = document.getElementById("bedrooms").value;
+      let matches = [];
 
-      let visible = 0;
+      allCards.forEach(card => {
 
-      propertyCards.forEach(card => {
-        const cardLocation = card.dataset.location.toLowerCase();
-        const cardType = card.dataset.type;
-        const cardPrice = Number(card.dataset.price);
-        const cardBedrooms = Number(card.dataset.bedrooms);
-        const features = card.dataset.features.split(" ");
+        const matchesFilters =
+          cardMatchesFilters(card);
 
-        let matches = true;
+        card.classList.remove(
+          "filtered-out"
+        );
 
-        if (location && !cardLocation.includes(location)) {
-          matches = false;
+        if (matchesFilters) {
+
+          matches.push(card);
+
+        } else {
+
+          card.classList.add(
+            "filtered-out"
+          );
+
         }
 
-        if (type !== "all" && cardType !== type) {
-          matches = false;
-        }
-
-        if (budget === "low" && cardPrice >= 2000) {
-          matches = false;
-        }
-
-        if (budget === "mid" && (cardPrice < 2000 || cardPrice > 4000)) {
-          matches = false;
-        }
-
-        if (budget === "high" && cardPrice < 4000) {
-          matches = false;
-        }
-
-        if (bedrooms !== "all") {
-          if (bedrooms === "4" && cardBedrooms < 4) {
-            matches = false;
-          } else if (bedrooms !== "4" && cardBedrooms !== Number(bedrooms)) {
-            matches = false;
-          }
-        }
-
-        if (activeFeature !== "all" && !features.includes(activeFeature)) {
-          matches = false;
-        }
-
-        card.style.display = matches ? "" : "none";
-
-        if (matches) {
-          visible++;
-        }
       });
+
+
+      /* SHOW ONLY WITHIN LOAD LIMIT */
+
+      let shownCount = 0;
+
+      matches.forEach(card => {
+
+        if (
+          shownCount < visibleLimit
+        ) {
+
+          card.classList.remove(
+            "hidden-by-load"
+          );
+
+          shownCount++;
+
+        } else {
+
+          card.classList.add(
+            "hidden-by-load"
+          );
+
+        }
+
+      });
+
+
+      /* COUNT */
 
       resultCount.textContent =
-        `${visible} ${visible === 1 ? "property" : "properties"}`;
+        `${matches.length} ${
+          matches.length === 1
+            ? "property"
+            : "properties"
+        }`;
 
-      noResults.style.display = visible === 0 ? "block" : "none";
+
+      /* NO RESULTS */
+
+      if (matches.length === 0) {
+
+        noResults.style.display =
+          "block";
+
+      } else {
+
+        noResults.style.display =
+          "none";
+
+      }
+
+
+      /* LOAD MORE BUTTON */
+
+      if (
+        matches.length > visibleLimit
+      ) {
+
+        loadMore.style.display =
+          "inline-block";
+
+        loadMore.disabled =
+          false;
+
+        loadMore.textContent =
+          "Load more properties";
+
+      } else {
+
+        loadMore.style.display =
+          "inline-block";
+
+        loadMore.disabled =
+          true;
+
+        loadMore.textContent =
+          matches.length > 0
+            ? "All properties loaded"
+            : "No properties available";
+
+      }
+
     }
 
-    propertyFilter.addEventListener("submit", event => {
-      event.preventDefault();
-      applyFilters();
 
-      document.querySelector(".property-section").scrollIntoView({
-        behavior: "smooth"
-      });
-    });
+    /* =========================
+       SEARCH FORM
+    ========================= */
 
-    document.querySelectorAll(".filter-chip").forEach(chip => {
-      chip.addEventListener("click", () => {
-        document.querySelectorAll(".filter-chip").forEach(item => {
-          item.classList.remove("active");
-        });
+    propertyFilter.addEventListener(
+      "submit",
+      function(event) {
 
-        chip.classList.add("active");
-        activeFeature = chip.dataset.feature;
+        event.preventDefault();
+
+        visibleLimit = 6;
 
         applyFilters();
+
+        document
+          .querySelector(".property-section")
+          .scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+
+      }
+    );
+
+
+    /* =========================
+       LIVE SEARCH
+    ========================= */
+
+    searchLocation.addEventListener(
+      "input",
+      function() {
+
+        visibleLimit = 6;
+
+        applyFilters();
+
+      }
+    );
+
+
+    propertyType.addEventListener(
+      "change",
+      function() {
+
+        visibleLimit = 6;
+
+        applyFilters();
+
+      }
+    );
+
+
+    budget.addEventListener(
+      "change",
+      function() {
+
+        visibleLimit = 6;
+
+        applyFilters();
+
+      }
+    );
+
+
+    bedrooms.addEventListener(
+      "change",
+      function() {
+
+        visibleLimit = 6;
+
+        applyFilters();
+
+      }
+    );
+
+
+    /* =========================
+       FEATURE CHIPS
+    ========================= */
+
+    document
+      .querySelectorAll(".filter-chip")
+      .forEach(chip => {
+
+        chip.addEventListener(
+          "click",
+          function() {
+
+            document
+              .querySelectorAll(".filter-chip")
+              .forEach(item => {
+
+                item.classList.remove(
+                  "active"
+                );
+
+              });
+
+
+            chip.classList.add(
+              "active"
+            );
+
+
+            activeFeature =
+              chip.dataset.feature;
+
+
+            visibleLimit = 6;
+
+            applyFilters();
+
+          }
+        );
+
       });
-    });
 
-    sortSelect.addEventListener("change", () => {
-      const cards = [...propertyGrid.querySelectorAll(".property-card")];
 
-      if (sortSelect.value === "price-low") {
-        cards.sort((a, b) =>
-          Number(a.dataset.price) - Number(b.dataset.price)
-        );
-      }
+    /* =========================
+       SORT
+    ========================= */
 
-      if (sortSelect.value === "price-high") {
-        cards.sort((a, b) =>
-          Number(b.dataset.price) - Number(a.dataset.price)
-        );
-      }
+    sortSelect.addEventListener(
+      "change",
+      function() {
 
-      if (sortSelect.value === "featured") {
-        cards.sort((a, b) =>
-          propertyCards.indexOf(a) - propertyCards.indexOf(b)
-        );
-      }
+        const cards =
+          [...propertyGrid.querySelectorAll(
+            ".property-card"
+          )];
 
-      cards.forEach(card => propertyGrid.appendChild(card));
-    });
 
-    document.querySelectorAll("[data-favorite]").forEach(button => {
-      button.addEventListener("click", event => {
-        event.preventDefault();
+        if (
+          sortSelect.value ===
+          "price-low"
+        ) {
 
-        button.classList.toggle("saved");
+          cards.sort(
+            (a, b) =>
+              Number(a.dataset.price) -
+              Number(b.dataset.price)
+          );
 
-        if (button.classList.contains("saved")) {
-          button.textContent = "♥";
-          showToast("Property saved in this demo.");
-        } else {
-          button.textContent = "♡";
-          showToast("Property removed from saved homes.");
         }
-      });
-    });
 
-    document.querySelectorAll("[data-demo]").forEach(element => {
-      element.addEventListener("click", event => {
-        event.preventDefault();
-        showToast("This feature is part of the Havenly portfolio demo.");
-      });
-    });
 
-    document.getElementById("loadMore").addEventListener("click", () => {
-      showToast("More properties will be connected to the database later.");
-    });
+        if (
+          sortSelect.value ===
+          "price-high"
+        ) {
+
+          cards.sort(
+            (a, b) =>
+              Number(b.dataset.price) -
+              Number(a.dataset.price)
+          );
+
+        }
+
+
+        if (
+          sortSelect.value ===
+          "featured"
+        ) {
+
+          cards.sort(
+            (a, b) =>
+              Number(a.dataset.featured) -
+              Number(b.dataset.featured)
+          );
+
+        }
+
+
+        cards.forEach(card => {
+
+          propertyGrid.appendChild(
+            card
+          );
+
+        });
+
+
+        visibleLimit = 6;
+
+        applyFilters();
+
+      }
+    );
+
+
+    /* =========================
+       LOAD MORE
+    ========================= */
+
+    loadMore.addEventListener(
+      "click",
+      function() {
+
+        const currentMatches =
+          allCards.filter(card =>
+            cardMatchesFilters(card)
+          );
+
+
+        if (
+          visibleLimit >=
+          currentMatches.length
+        ) {
+          return;
+        }
+
+
+        visibleLimit += 6;
+
+        applyFilters();
+
+
+        showToast(
+          `${Math.min(
+            visibleLimit,
+            currentMatches.length
+          )} properties are now visible.`
+        );
+
+      }
+    );
+
+
+    /* =========================
+       RESET SEARCH
+    ========================= */
+
+    resetSearch.addEventListener(
+      "click",
+      function() {
+
+        searchLocation.value = "";
+
+        propertyType.value =
+          "all";
+
+        budget.value =
+          "all";
+
+        bedrooms.value =
+          "all";
+
+        activeFeature =
+          "all";
+
+        document
+          .querySelectorAll(".filter-chip")
+          .forEach(chip => {
+
+            chip.classList.remove(
+              "active"
+            );
+
+          });
+
+
+        document
+          .querySelector(
+            '[data-feature="all"]'
+          )
+          .classList.add(
+            "active"
+          );
+
+
+        sortSelect.value =
+          "featured";
+
+
+        const cards =
+          [...propertyGrid.querySelectorAll(
+            ".property-card"
+          )];
+
+
+        cards.sort(
+          (a, b) =>
+            Number(a.dataset.featured) -
+            Number(b.dataset.featured)
+        );
+
+
+        cards.forEach(card => {
+
+          propertyGrid.appendChild(
+            card
+          );
+
+        });
+
+
+        visibleLimit = 6;
+
+        applyFilters();
+
+        showToast(
+          "Search filters have been reset."
+        );
+
+      }
+    );
+
+
+    /* =========================
+       FAVORITES
+    ========================= */
+
+    document
+      .querySelectorAll("[data-favorite]")
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          function(event) {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+
+            button.classList.toggle(
+              "saved"
+            );
+
+
+            if (
+              button.classList.contains(
+                "saved"
+              )
+            ) {
+
+              button.textContent =
+                "♥";
+
+              showToast(
+                "Property saved to your favorites."
+              );
+
+            } else {
+
+              button.textContent =
+                "♡";
+
+              showToast(
+                "Property removed from favorites."
+              );
+
+            }
+
+          }
+        );
+
+      });
+
+
+    /* =========================
+       SIGN IN
+    ========================= */
+
+    document
+      .getElementById("signInBtn")
+      .addEventListener(
+        "click",
+        function(event) {
+
+          event.preventDefault();
+
+          showToast(
+            "Sign in will be available in the full Havenly platform."
+          );
+
+        }
+      );
+
+
+    /* =========================
+       LIST PROPERTY
+    ========================= */
+
+    document
+      .getElementById("listPropertyBtn")
+      .addEventListener(
+        "click",
+        function() {
+
+          showToast(
+            "Property listing will be connected to the owner system later."
+          );
+
+        }
+      );
+
+
+    /* =========================
+       AI DEMO
+    ========================= */
 
     function sendAIMessage() {
-      const message = aiInput.value.trim();
+
+      const message =
+        aiInput.value.trim();
+
 
       if (!message) {
-        showToast("Type a question for Havenly AI.");
+
+        showToast(
+          "Type a question for Havenly AI."
+        );
+
+        aiInput.focus();
+
         return;
+
       }
 
-      showToast("AI Assistant will be connected to the property database later.");
+
+      showToast(
+        "Havenly AI will connect to the property database in the next stage."
+      );
+
+
       aiInput.value = "";
+
     }
 
-    aiSend.addEventListener("click", sendAIMessage);
 
-    aiInput.addEventListener("keydown", event => {
-      if (event.key === "Enter") {
-        sendAIMessage();
+    aiSend.addEventListener(
+      "click",
+      sendAIMessage
+    );
+
+
+    aiInput.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (
+          event.key === "Enter"
+        ) {
+
+          event.preventDefault();
+
+          sendAIMessage();
+
+        }
+
       }
-    });
+    );
 
-    menuBtn.addEventListener("click", () => {
-      mainNav.classList.toggle("mobile-open");
-      menuBtn.textContent =
-        mainNav.classList.contains("mobile-open") ? "×" : "☰";
-    });
+
+    /* =========================
+       MOBILE MENU
+    ========================= */
+
+    menuBtn.addEventListener(
+      "click",
+      function() {
+
+        const isOpen =
+          mainNav.classList.toggle(
+            "mobile-open"
+          );
+
+
+        document.body.classList.toggle(
+          "menu-open",
+          isOpen
+        );
+
+
+        menuBtn.setAttribute(
+          "aria-expanded",
+          isOpen
+        );
+
+
+        menuBtn.textContent =
+          isOpen
+            ? "×"
+            : "☰";
+
+      }
+    );
+
+
+    /* CLOSE MOBILE MENU AFTER LINK */
+
+    mainNav
+      .querySelectorAll(".nav-links a")
+      .forEach(link => {
+
+        link.addEventListener(
+          "click",
+          function() {
+
+            mainNav.classList.remove(
+              "mobile-open"
+            );
+
+            document.body.classList.remove(
+              "menu-open"
+            );
+
+            menuBtn.setAttribute(
+              "aria-expanded",
+              "false"
+            );
+
+            menuBtn.textContent =
+              "☰";
+
+          }
+        );
+
+      });
+
+
+    /* =========================
+       INITIAL STATE
+    ========================= */
+
+    applyFilters();
+
   </script>
 
 </body>
-    </html>
+  </html>
