@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Havenly privacy policy and information about how user data is handled.">
+
+  <title>Privacy Policy | Havenly</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #171816;
+      --cream: #f3eee4;
+      --paper: #faf9f5;
+      --gold: #b8945f;
+      --line: #ddd8ce;
+      --muted: #77756f;
+      --white: #fff;
+      --shadow: 0 22px 55px rgba(20,20,17,.10);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    /* HEADER */
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+
+      background: rgba(250,249,245,.94);
+      backdrop-filter: blur(16px);
+
+      border-bottom: 1px solid rgba(221,216,206,.85);
+    }
+
+    .nav {
+      width: min(1240px, calc(100% - 40px));
+      min-height: 78px;
+
+      margin: auto;
+
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+
+      align-items: center;
+      gap: 30px;
+
+      position: relative;
+    }
+
+    .logo {
+      font-family: "Playfair Display", serif;
+
+      font-size: 30px;
+      font-weight: 700;
+
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+
+      gap: 34px;
+
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nav-links a {
+      position: relative;
+      color: #55534e;
+    }
+
+    .nav-links a::after {
+      content: "";
+
+      position: absolute;
+
+      left: 0;
+      bottom: -7px;
+
+      width: 0;
+      height: 1px;
+
+      background: var(--ink);
+
+      transition: .3s;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      gap: 14px;
+    }
+
+    .sign-in {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .list-btn {
+      border: 1px solid var(--ink);
+
+      background: var(--ink);
+      color: var(--white);
+
+      padding: 12px 18px;
+
+      border-radius: 999px;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      transition: .25s;
+    }
+
+    .list-btn:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+
+    .menu-btn {
+      display: none;
+
+      border: 0;
+      background: transparent;
+
+      font-size: 26px;
+    }
+
+    /* HERO */
+
+    .hero {
+      width: min(1240px, calc(100% - 40px));
+
+      min-height: 440px;
+
+      margin: 35px auto 0;
+
+      border-radius: 30px;
+
+      overflow: hidden;
+
+      position: relative;
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(15,16,14,.86),
+          rgba(15,16,14,.38)
+        ),
+        url("https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1800&q=90")
+        center/cover;
+
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-content {
+      padding: 60px;
+
+      color: var(--white);
+
+      max-width: 850px;
+    }
+
+    .eyebrow {
+      color: #d2b27b;
+
+      text-transform: uppercase;
+
+      letter-spacing: 2.4px;
+
+      font-size: 11px;
+      font-weight: 700;
+
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-family: "Playfair Display", serif;
+
+      font-size: clamp(55px, 7vw, 86px);
+
+      line-height: .98;
+
+      letter-spacing: -3px;
+
+      margin-bottom: 22px;
+    }
+
+    .hero p {
+      max-width: 620px;
+
+      color: rgba(255,255,255,.82);
+
+      font-size: 15px;
+
+      line-height: 1.85;
+    }
+
+    /* POLICY LAYOUT */
+
+    .policy-layout {
+      width: min(1080px, calc(100% - 40px));
+
+      margin: 100px auto 110px;
+
+      display: grid;
+
+      grid-template-columns: 250px 1fr;
+
+      gap: 75px;
+
+      align-items: start;
+    }
+
+    /* SIDE NAV */
+
+    .policy-nav {
+      position: sticky;
+      top: 115px;
+
+      border-left: 1px solid var(--line);
+
+      padding-left: 22px;
+    }
+
+    .policy-nav-title {
+      color: var(--gold);
+
+      text-transform: uppercase;
+
+      letter-spacing: 1.7px;
+
+      font-size: 10px;
+
+      font-weight: 700;
+
+      margin-bottom: 17px;
+    }
+
+    .policy-nav a {
+      display: block;
+
+      color: #77756f;
+
+      font-size: 12px;
+
+      margin-bottom: 12px;
+
+      transition: .2s;
+    }
+
+    .policy-nav a:hover {
+      color: var(--ink);
+
+      transform: translateX(3px);
+    }
+
+    /* POLICY CONTENT */
+
+    .policy-content {
+      background: var(--white);
+
+      border: 1px solid var(--line);
+
+      border-radius: 24px;
+
+      padding: 50px;
+
+      box-shadow: var(--shadow);
+    }
+
+    .last-updated {
+      display: inline-flex;
+
+      align-items: center;
+
+      padding: 8px 12px;
+
+      border-radius: 999px;
+
+      background: var(--cream);
+
+      color: #69665e;
+
+      font-size: 10px;
+
+      font-weight: 700;
+
+      margin-bottom: 28px;
+    }
+
+    .policy-content > h2 {
+      font-family: "Playfair Display", serif;
+
+      font-size: 38px;
+
+      line-height: 1.1;
+
+      letter-spacing: -1px;
+
+      margin-bottom: 15px;
+    }
+
+    .intro-text {
+      color: #67655f;
+
+      font-size: 14px;
+
+      line-height: 1.9;
+
+      padding-bottom: 35px;
+
+      border-bottom: 1px solid var(--line);
+
+      margin-bottom: 10px;
+    }
+
+    .policy-section {
+      padding: 34px 0;
+
+      border-bottom: 1px solid var(--line);
+
+      scroll-margin-top: 110px;
+    }
+
+    .policy-section:last-child {
+      border-bottom: 0;
+
+      padding-bottom: 5px;
+    }
+
+    .policy-section h3 {
+      font-family: "Playfair Display", serif;
+
+      font-size: 27px;
+
+      line-height: 1.2;
+
+      margin-bottom: 14px;
+    }
+
+    .policy-section p {
+      color: #62605a;
+
+      font-size: 14px;
+
+      line-height: 1.9;
+
+      margin-bottom: 13px;
+    }
+
+    .policy-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .policy-section ul {
+      padding-left: 20px;
+
+      color: #62605a;
+
+      font-size: 14px;
+
+      line-height: 1.9;
+    }
+
+    .policy-section li {
+      margin-bottom: 8px;
+    }
+
+    .policy-section strong {
+      color: var(--ink);
+    }
+
+    .notice {
+      margin-top: 18px;
+
+      padding: 20px;
+
+      border-radius: 14px;
+
+      background: var(--cream);
+
+      color: #5f5c55;
+
+      font-size: 12px;
+
+      line-height: 1.7;
+    }
+
+    /* CTA */
+
+    .cta {
+      width: min(1080px, calc(100% - 40px));
+
+      min-height: 360px;
+
+      margin: 0 auto 110px;
+
+      border-radius: 27px;
+
+      overflow: hidden;
+
+      position: relative;
+
+      background:
+        linear-gradient(
+          rgba(15,16,14,.56),
+          rgba(15,16,14,.78)
+        ),
+        url("https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1700&q=90")
+        center/cover;
+
+      display: flex;
+
+      justify-content: center;
+      align-items: center;
+
+      text-align: center;
+
+      color: var(--white);
+    }
+
+    .cta-content {
+      padding: 40px;
+    }
+
+    .cta h2 {
+      font-family: "Playfair Display", serif;
+
+      font-size: clamp(42px, 6vw, 65px);
+
+      line-height: 1;
+
+      letter-spacing: -2px;
+
+      margin-bottom: 17px;
+    }
+
+    .cta p {
+      max-width: 570px;
+
+      margin: auto auto 25px;
+
+      color: rgba(255,255,255,.78);
+
+      font-size: 13px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+
+      border: 1px solid var(--white);
+
+      background: var(--white);
+
+      color: var(--ink);
+
+      padding: 13px 21px;
+
+      border-radius: 999px;
+
+      font-size: 13px;
+
+      font-weight: 700;
+
+      transition: .25s;
+    }
+
+    .cta-btn:hover {
+      background: var(--gold);
+
+      border-color: var(--gold);
+
+      color: var(--white);
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: var(--ink);
+
+      color: var(--white);
+    }
+
+    .footer-inner {
+      width: min(1240px, calc(100% - 40px));
+
+      margin: auto;
+
+      padding: 65px 0 28px;
+    }
+
+    .footer-top {
+      display: grid;
+
+      grid-template-columns: 1.4fr repeat(3,1fr);
+
+      gap: 40px;
+
+      padding-bottom: 50px;
+    }
+
+    .footer-brand p {
+      max-width: 310px;
+
+      margin-top: 14px;
+
+      color: #aaa9a3;
+
+      font-size: 13px;
+    }
+
+    .footer-col h4 {
+      color: #d8d4cb;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1.5px;
+
+      font-size: 11px;
+
+      margin-bottom: 17px;
+    }
+
+    .footer-col a {
+      display: block;
+
+      color: #aaa9a3;
+
+      font-size: 13px;
+
+      margin-bottom: 10px;
+
+      transition: .2s;
+    }
+
+    .footer-col a:hover {
+      color: var(--white);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.12);
+
+      padding-top: 22px;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      gap: 20px;
+
+      color: #898781;
+
+      font-size: 11px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+
+      .nav {
+        grid-template-columns: 1fr auto;
+      }
+
+      .nav-links,
+      .nav-actions {
+        display: none;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .nav.mobile-open .nav-links {
+        display: flex;
+
+        position: absolute;
+
+        top: 78px;
+
+        left: 20px;
+        right: 20px;
+
+        padding: 22px;
+
+        flex-direction: column;
+
+        gap: 18px;
+
+        background: var(--paper);
+
+        border: 1px solid var(--line);
+
+        border-radius: 0 0 18px 18px;
+
+        box-shadow: var(--shadow);
+      }
+
+      .policy-layout {
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+      }
+
+      .policy-nav {
+        position: static;
+
+        border-left: 0;
+
+        border-bottom: 1px solid var(--line);
+
+        padding: 0 0 20px;
+
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 10px 22px;
+      }
+
+      .policy-nav-title {
+        width: 100%;
+      }
+
+      .policy-nav a {
+        margin: 0;
+      }
+    }
+
+    @media (max-width: 650px) {
+
+      .hero {
+        width: calc(100% - 28px);
+
+        min-height: 500px;
+
+        margin-top: 18px;
+      }
+
+      .hero-content {
+        padding: 35px;
+      }
+
+      .hero h1 {
+        font-size: 52px;
+      }
+
+      .policy-layout,
+      .cta {
+        width: calc(100% - 28px);
+      }
+
+      .policy-layout {
+        margin: 70px auto 75px;
+      }
+
+      .policy-content {
+        padding: 30px 22px;
+      }
+
+      .policy-content > h2 {
+        font-size: 33px;
+      }
+
+      .policy-section {
+        padding: 28px 0;
+      }
+
+      .policy-section h3 {
+        font-size: 25px;
+      }
+
+      .cta {
+        margin-bottom: 75px;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-brand {
+        grid-column: 1 / 3;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 430px) {
+
+      .logo {
+        font-size: 27px;
+      }
+
+      .hero h1 {
+        font-size: 47px;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-brand {
+        grid-column: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+
+  <header class="header">
+
+    <nav class="nav" id="nav">
+
+      <a href="index.html" class="logo">
+        Haven<span>ly</span>
+      </a>
+
+      <div class="nav-links">
+
+        <a href="properties.html">
+          Explore
+        </a>
+
+        <a href="properties.html">
+          Homes
+        </a>
+
+        <a href="locations.html">
+          Locations
+        </a>
+
+        <a href="about.html">
+          About
+        </a>
+
+        <a href="contact.html">
+          Contact
+        </a>
+
+      </div>
+
+      <div class="nav-actions">
+
+        <a
+          href="#"
+          class="sign-in"
+          onclick="showDemoMessage('Sign in is available in the future version.'); return false;"
+        >
+          Sign in
+        </a>
+
+        <button
+          class="list-btn"
+          onclick="showDemoMessage('Property listing is a demo feature.')"
+        >
+          List a property
+        </button>
+
+      </div>
+
+      <button
+        class="menu-btn"
+        id="menuBtn"
+        aria-label="Open menu"
+      >
+        ☰
+      </button>
+
+    </nav>
+
+  </header>
+
+
+  <main>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+      <div class="hero-content">
+
+        <div class="eyebrow">
+          Havenly privacy
+        </div>
+
+        <h1>
+          Your information deserves clarity.
+        </h1>
+
+        <p>
+          This privacy policy explains how Havenly is designed to handle
+          information in a transparent and responsible way.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- POLICY -->
+
+    <section class="policy-layout">
+
+      <!-- SIDE NAV -->
+
+      <aside class="policy-nav">
+
+        <div class="policy-nav-title">
+          On this page
+        </div>
+
+        <a href="#overview">
+          Overview
+        </a>
+
+        <a href="#information">
+          Information we collect
+        </a>
+
+        <a href="#use">
+          How information is used
+        </a>
+
+        <a href="#sharing">
+          Information sharing
+        </a>
+
+        <a href="#security">
+          Data security
+        </a>
+
+        <a href="#cookies">
+          Cookies
+        </a>
+
+        <a href="#choices">
+          Your choices
+        </a>
+
+        <a href="#changes">
+          Policy changes
+        </a>
+
+      </aside>
+
+
+      <!-- CONTENT -->
+
+      <article class="policy-content">
+
+        <div class="last-updated">
+          LAST UPDATED · 2026
+        </div>
+
+        <h2>
+          Havenly Privacy Policy
+        </h2>
+
+        <p class="intro-text">
+          This page describes the intended privacy approach for Havenly,
+          a portfolio and demonstration property platform. The current
+          website is a front-end concept and does not operate as a
+          production real estate service.
+        </p>
+
+
+        <!-- OVERVIEW -->
+
+        <section class="policy-section" id="overview">
+
+          <h3>
+            1. Overview
+          </h3>
+
+          <p>
+            Havenly is designed with privacy and transparency in mind.
+            As the platform develops, information may be collected when
+            users interact with property searches, forms, accounts,
+            inquiries, or future intelligent features.
+          </p>
+
+          <p>
+            The current portfolio version is primarily a demonstration
+            experience. Its forms and interactive features are not
+            connected to a production database.
+          </p>
+
+        </section>
+
+
+        <!-- INFORMATION -->
+
+        <section class="policy-section" id="information">
+
+          <h3>
+            2. Information we may collect
+          </h3>
+
+          <p>
+            Depending on future functionality, Havenly may collect
+            information that users voluntarily provide.
+          </p>
+
+          <ul>
+
+            <li>
+              Name and contact information.
+            </li>
+
+            <li>
+              Email address and phone number.
+            </li>
+
+            <li>
+              Property preferences and search requirements.
+            </li>
+
+            <li>
+              Property inquiry information.
+            </li>
+
+            <li>
+              Account information if user accounts are introduced.
+            </li>
+
+            <li>
+              Information submitted through future AI interactions.
+            </li>
+
+          </ul>
+
+          <div class="notice">
+            The current demo version does not have a production
+            account system or live property database.
+          </div>
+
+        </section>
+
+
+        <!-- USE -->
+
+        <section class="policy-section" id="use">
+
+          <h3>
+            3. How information may be used
+          </h3>
+
+          <p>
+            If Havenly becomes a live service, collected information
+            may be used to provide and improve the platform.
+          </p>
+
+          <ul>
+
+            <li>
+              Help users discover relevant properties.
+            </li>
+
+            <li>
+              Respond to property inquiries.
+            </li>
+
+            <li>
+              Improve search and recommendation features.
+            </li>
+
+            <li>
+              Provide account and customer support services.
+            </li>
+
+            <li>
+              Improve future Havenly AI functionality.
+            </li>
+
+            <li>
+              Maintain platform security and reliability.
+            </li>
+
+          </ul>
+
+        </section>
+
+
+        <!-- SHARING -->
+
+        <section class="policy-section" id="sharing">
+
+          <h3>
+            4. Information sharing
+          </h3>
+
+          <p>
+            Havenly is designed not to sell personal information as a
+            product. If the platform becomes operational, information
+            may need to be shared with service providers or property
+            partners when necessary to provide a requested service.
+          </p>
+
+          <p>
+            Any future sharing practices would be governed by the
+            applicable privacy terms and the functionality available
+            at that time.
+          </p>
+
+        </section>
+
+
+        <!-- SECURITY -->
+
+        <section class="policy-section" id="security">
+
+          <h3>
+            5. Data security
+          </h3>
+
+          <p>
+            Security is intended to be an important part of the Havenly
+            platform. Future production systems should use appropriate
+            technical and organizational safeguards to protect user data.
+          </p>
+
+          <p>
+            No internet-based system can guarantee absolute security,
+            but reasonable measures should be used to reduce the risk
+            of unauthorized access, loss, or misuse.
+          </p>
+
+        </section>
+
+
+        <!-- COOKIES -->
+
+        <section class="policy-section" id="cookies">
+
+          <h3>
+            6. Cookies and similar technologies
+          </h3>
+
+          <p>
+            A future production version of Havenly may use cookies or
+            similar technologies to remember preferences, understand
+            usage patterns, improve functionality, and maintain secure
+            sessions.
+          </p>
+
+          <p>
+            The current portfolio version does not rely on a production
+            cookie-based account system.
+          </p>
+
+        </section>
+
+
+        <!-- CHOICES -->
+
+        <section class="policy-section" id="choices">
+
+          <h3>
+            7. Your choices
+          </h3>
+
+          <p>
+            Where applicable, users may have choices regarding the
+            information they provide and how it is used.
+          </p>
+
+          <ul>
+
+            <li>
+              Request information about data associated with an account.
+            </li>
+
+            <li>
+              Request correction of inaccurate information.
+            </li>
+
+            <li>
+              Request deletion where applicable.
+            </li>
+
+            <li>
+              Manage certain communication preferences.
+            </li>
+
+          </ul>
+
+        </section>
+
+
+        <!-- CHANGES -->
+
+        <section class="policy-section" id="changes">
+
+          <h3>
+            8. Changes to this policy
+          </h3>
+
+          <p>
+            This privacy policy may be updated as Havenly develops
+            new features, services, technology, and data practices.
+          </p>
+
+          <p>
+            When this happens, the updated version should replace the
+            previous version on the website and display a new revision date.
+          </p>
+
+        </section>
+
+
+        <!-- CONTACT -->
+
+        <section class="policy-section" id="contact">
+
+          <h3>
+            9. Contact
+          </h3>
+
+          <p>
+            If you have questions about this privacy policy or the
+            Havenly concept, you can visit the contact page.
+          </p>
+
+          <p>
+            <strong>
+              Email:
+            </strong>
+            hello@havenly.example
+          </p>
+
+        </section>
+
+      </article>
+
+    </section>
+
+
+    <!-- CTA -->
+
+    <section class="cta">
+
+      <div class="cta-content">
+
+        <div class="eyebrow">
+          Need more information?
+        </div>
+
+        <h2>
+          We're here to help.
+        </h2>
+
+        <p>
+          For questions about Havenly, property discovery, or the
+          platform concept, visit our contact page.
+        </p>
+
+        <a
+          href="contact.html"
+          class="cta-btn"
+        >
+          Contact Havenly
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="footer-inner">
+
+      <div class="footer-top">
+
+        <div class="footer-brand">
+
+          <a href="index.html" class="logo">
+            Haven<span>ly</span>
+          </a>
+
+          <p>
+            A premium property discovery experience designed for modern
+            renters and future intelligent real estate search.
+          </p>
+
+        </div>
+
+
+        <div class="footer-col">
+
+          <h4>
+            Explore
+          </h4>
+
+          <a href="properties.html">
+            All properties
+          </a>
+
+          <a href="locations.html">
+            Locations
+          </a>
+
+          <a href="property.html">
+            Featured property
+          </a>
+
+        </div>
+
+
+        <div class="footer-col">
+
+          <h4>
+            Havenly
+          </h4>
+
+          <a href="about.html">
+            About
+          </a>
+
+          <a href="contact.html">
+            Contact
+          </a>
+
+          <a href="#">
+            Havenly AI
+          </a>
+
+        </div>
+
+
+        <div class="footer-col">
+
+          <h4>
+            Legal
+          </h4>
+
+          <a href="privacy.html">
+            Privacy
+          </a>
+
+          <a href="#">
+            Terms
+          </a>
+
+          <a href="#">
+            Demo information
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="footer-bottom">
+
+        <span>
+          © 2026 Havenly. Portfolio concept.
+        </span>
+
+        <span>
+          Designed for a future-ready real estate experience.
+        </span>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <script>
+
+    const nav = document.getElementById("nav");
+    const menuBtn = document.getElementById("menuBtn");
+
+    menuBtn.addEventListener("click", () => {
+
+      nav.classList.toggle("mobile-open");
+
+      menuBtn.textContent =
+        nav.classList.contains("mobile-open")
+          ? "×"
+          : "☰";
+
+    });
+
+
+    function showDemoMessage(message) {
+
+      const existingToast =
+        document.querySelector(".demo-toast");
+
+      if (existingToast) {
+        existingToast.remove();
+      }
+
+      const toast =
+        document.createElement("div");
+
+      toast.className = "demo-toast";
+
+      toast.textContent = message;
+
+      toast.style.position = "fixed";
+      toast.style.left = "50%";
+      toast.style.bottom = "25px";
+      toast.style.transform = "translateX(-50%)";
+      toast.style.zIndex = "3000";
+      toast.style.background = "#171816";
+      toast.style.color = "#fff";
+      toast.style.padding = "13px 20px";
+      toast.style.borderRadius = "999px";
+      toast.style.fontSize = "13px";
+      toast.style.boxShadow = "0 15px 40px rgba(0,0,0,.25)";
+
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.remove();
+      }, 2800);
+
+    }
+
+  </script>
+
+</body>
+  </html>
