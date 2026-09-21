@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Havenly property details — a premium real estate discovery experience." />
+  <title>Property Details | Havenly</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #171816;
+      --ink-soft: #292a27;
+      --cream: #f5f1e8;
+      --paper: #fbfaf7;
+      --gold: #b8945f;
+      --line: #ddd8cd;
+      --muted: #77756f;
+      --white: #ffffff;
+      --radius-lg: 28px;
+      --radius-md: 18px;
+      --shadow: 0 20px 55px rgba(20, 20, 17, .10);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    /* HEADER */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(251, 250, 247, .94);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(221, 216, 205, .8);
+    }
+
+    .nav {
+      width: min(1240px, calc(100% - 40px));
+      margin: auto;
+      min-height: 78px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .logo {
+      font-family: "Playfair Display", serif;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 34px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nav-links a {
+      position: relative;
+      color: #4f4d48;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -7px;
+      width: 0;
+      height: 1px;
+      background: var(--ink);
+      transition: .3s;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sign-in {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .list-btn {
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: var(--white);
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    .list-btn:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+
+    .menu-btn {
+      display: none;
+      border: 0;
+      background: transparent;
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    /* PAGE */
+    .page {
+      width: min(1240px, calc(100% - 40px));
+      margin: auto;
+      padding: 42px 0 90px;
+    }
+
+    .breadcrumb {
+      display: flex;
+      gap: 9px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 25px;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--ink);
+    }
+
+    .property-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .property-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(38px, 5vw, 66px);
+      line-height: 1.02;
+      letter-spacing: -2px;
+      max-width: 800px;
+    }
+
+    .location {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--muted);
+      margin-top: 14px;
+      font-size: 15px;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .icon-action {
+      border: 1px solid var(--line);
+      background: var(--white);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      transition: .25s;
+    }
+
+    .icon-action:hover,
+    .icon-action.saved {
+      background: var(--ink);
+      color: var(--white);
+      border-color: var(--ink);
+    }
+
+    /* GALLERY */
+    .gallery {
+      display: grid;
+      grid-template-columns: 1.65fr .8fr .8fr;
+      grid-template-rows: 270px 270px;
+      gap: 10px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 55px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      background: #ddd;
+    }
+
+    .gallery-item:first-child {
+      grid-row: 1 / 3;
+    }
+
+    .gallery-item img {
+      height: 100%;
+      transition: transform .6s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.035);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 20px;
+      background: linear-gradient(transparent 55%, rgba(0,0,0,.45));
+    }
+
+    .view-gallery {
+      background: rgba(255,255,255,.94);
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 17px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* MAIN CONTENT */
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 370px;
+      gap: 70px;
+      align-items: start;
+    }
+
+    .section {
+      padding-bottom: 46px;
+      margin-bottom: 46px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section:last-child {
+      border-bottom: 0;
+    }
+
+    .section h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 32px;
+      letter-spacing: -.7px;
+      margin-bottom: 22px;
+    }
+
+    .description {
+      color: #55534d;
+      font-size: 16px;
+      max-width: 750px;
+      line-height: 1.9;
+    }
+
+    /* PROPERTY FACTS */
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .fact {
+      background: var(--paper);
+      padding: 23px 18px;
+    }
+
+    .fact strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 3px;
+    }
+
+    .fact span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* AMENITIES */
+    .amenities {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .amenity {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--white);
+    }
+
+    .amenity-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--cream);
+      font-size: 17px;
+    }
+
+    .amenity span {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* DETAILS */
+    .details-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 16px 15px 16px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+    }
+
+    .detail-row span:first-child {
+      color: var(--muted);
+    }
+
+    .detail-row strong {
+      text-align: right;
+    }
+
+    /* LOCATION */
+    .map-box {
+      height: 310px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      position: relative;
+      background:
+        linear-gradient(rgba(245,241,232,.72), rgba(245,241,232,.72)),
+        repeating-linear-gradient(
+          45deg,
+          #d8d3c7 0,
+          #d8d3c7 2px,
+          transparent 2px,
+          transparent 42px
+        );
+      border: 1px solid var(--line);
+    }
+
+    .map-road {
+      position: absolute;
+      background: rgba(255,255,255,.9);
+      transform: rotate(-22deg);
+      width: 120%;
+      height: 48px;
+      top: 120px;
+      left: -10%;
+      box-shadow: 0 0 0 3px rgba(190,184,171,.3);
+    }
+
+    .map-road.second {
+      transform: rotate(36deg);
+      top: 190px;
+    }
+
+    .map-pin {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 54px;
+      height: 54px;
+      border-radius: 50% 50% 50% 0;
+      background: var(--ink);
+      transform-origin: center;
+      rotate: -45deg;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,.2);
+    }
+
+    .map-pin::after {
+      content: "";
+      width: 17px;
+      height: 17px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    .map-label {
+      position: absolute;
+      bottom: 18px;
+      left: 18px;
+      background: rgba(255,255,255,.95);
+      padding: 12px 15px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* BOOKING CARD */
+    .booking-card {
+      position: sticky;
+      top: 105px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 27px;
+      box-shadow: var(--shadow);
+    }
+
+    .price-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      padding-bottom: 23px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 20px;
+    }
+
+    .price {
+      font-family: "Playfair Display", serif;
+      font-size: 31px;
+      font-weight: 700;
+    }
+
+    .per {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .verified {
+      color: #6b604d;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #fcfbf8;
+      border-radius: 12px;
+      padding: 13px 14px;
+      outline: none;
+      transition: .2s;
+      color: var(--ink);
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: var(--gold);
+    }
+
+    .field textarea {
+      height: 95px;
+      resize: vertical;
+    }
+
+    .inquire-btn {
+      width: 100%;
+      border: 0;
+      background: var(--ink);
+      color: var(--white);
+      border-radius: 13px;
+      padding: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .25s;
+      margin-top: 4px;
+    }
+
+    .inquire-btn:hover {
+      background: var(--gold);
+    }
+
+    .booking-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 12px;
+    }
+
+    .agent {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin-top: 23px;
+      padding-top: 21px;
+      border-top: 1px solid var(--line);
+    }
+
+    .agent-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .agent-info strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .agent-info span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* AI */
+    .ai-card {
+      border-radius: var(--radius-md);
+      background: var(--ink);
+      color: var(--white);
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ai-card::before {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      right: -80px;
+      top: -110px;
+      border-radius: 50%;
+      border: 1px solid rgba(184,148,95,.35);
+    }
+
+    .ai-card h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 27px;
+      margin-bottom: 8px;
+    }
+
+    .ai-card p {
+      color: #c7c5bd;
+      font-size: 14px;
+      max-width: 570px;
+      margin-bottom: 20px;
+    }
+
+    .ai-input {
+      display: flex;
+      background: var(--white);
+      border-radius: 12px;
+      padding: 5px;
+      max-width: 600px;
+    }
+
+    .ai-input input {
+      flex: 1;
+      border: 0;
+      outline: 0;
+      padding: 11px 13px;
+      min-width: 0;
+    }
+
+    .ai-input button {
+      border: 0;
+      background: var(--gold);
+      color: var(--white);
+      border-radius: 9px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    /* SIMILAR */
+    .similar-section {
+      padding-top: 20px;
+    }
+
+    .similar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      margin-bottom: 24px;
+    }
+
+    .similar-header h2 {
+      margin: 0;
+    }
+
+    .view-all {
+      font-size: 13px;
+      font-weight: 700;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 3px;
+    }
+
+    .similar-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .similar-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: .3s;
+    }
+
+    .similar-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .similar-image {
+      height: 210px;
+      position: relative;
+    }
+
+    .similar-image img {
+      height: 100%;
+    }
+
+    .similar-body {
+      padding: 17px;
+    }
+
+    .similar-body h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .similar-body p {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 13px;
+    }
+
+    .similar-price {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .similar-price span {
+      color: var(--muted);
+      font-weight: 400;
+      font-size: 11px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--ink);
+      color: var(--white);
+      margin-top: 80px;
+    }
+
+    .footer-inner {
+      width: min(1240px, calc(100% - 40px));
+      margin: auto;
+      padding: 65px 0 28px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.4fr repeat(3, 1fr);
+      gap: 40px;
+      padding-bottom: 50px;
+    }
+
+    .footer-brand .logo {
+      display: inline-block;
+      margin-bottom: 14px;
+    }
+
+    .footer-brand p {
+      color: #aaa9a3;
+      font-size: 13px;
+      max-width: 300px;
+    }
+
+    .footer-col h4 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #d8d4cb;
+      margin-bottom: 17px;
+    }
+
+    .footer-col a {
+      display: block;
+      color: #aaa9a3;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .footer-col a:hover {
+      color: var(--white);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.12);
+      padding-top: 22px;
+      display: flex;
+      justify-content: space-between;
+      color: #898781;
+      font-size: 11px;
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 25px;
+      transform: translate(-50%, 100px);
+      background: var(--ink);
+      color: var(--white);
+      padding: 13px 19px;
+      border-radius: 999px;
+      font-size: 13px;
+      z-index: 2000;
+      opacity: 0;
+      transition: .35s;
+      box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    }
+
+    .toast.show {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 980px) {
+      .nav {
+        grid-template-columns: 1fr auto;
+      }
+
+      .nav-links,
+      .nav-actions {
+        display: none;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .nav.mobile-open {
+        position: relative;
+      }
+
+      .nav.mobile-open .nav-links {
+        display: flex;
+        position: absolute;
+        top: 78px;
+        left: 0;
+        right: 0;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        padding: 22px;
+        flex-direction: column;
+        border-radius: 0 0 18px 18px;
+        gap: 18px;
+      }
+
+      .content-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .booking-card {
+        position: relative;
+        top: 0;
+      }
+
+      .similar-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .page {
+        width: min(100% - 28px, 1240px);
+        padding-top: 25px;
+      }
+
+      .property-top {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .top-actions {
+        width: 100%;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 300px 150px;
+      }
+
+      .gallery-item:first-child {
+        grid-column: 1 / 3;
+        grid-row: 1;
+      }
+
+      .gallery-item:nth-child(4) {
+        display: none;
+      }
+
+      .facts {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .amenities,
+      .details-list,
+      .similar-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-brand {
+        grid-column: 1 / 3;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 27px;
+      }
+
+      .property-title {
+        font-size: 39px;
+        letter-spacing: -1.3px;
+      }
+
+      .gallery {
+        grid-template-rows: 250px 125px;
+      }
+
+      .gallery-overlay {
+        padding: 12px;
+      }
+
+      .view-gallery {
+        padding: 9px 12px;
+        font-size: 11px;
+      }
+
+      .booking-card {
+        padding: 21px;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-brand {
+        grid-column: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <nav class="nav" id="nav">
+      <a href="index.html" class="logo">Haven<span>ly</span></a>
+
+      <div class="nav-links">
+        <a href="properties.html" class="active">Explore</a>
+        <a href="properties.html">Homes</a>
+        <a href="index.html#locations">Locations</a>
+        <a href="index.html#about">About</a>
+      </div>
+
+      <div class="nav-actions">
+        <a href="#" class="sign-in" onclick="showToast('Sign in is available in the future version.'); return false;">Sign in</a>
+        <button class="list-btn" onclick="showToast('Property listing is a demo feature.')">List a property</button>
+      </div>
+
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+    </nav>
+  </header>
+
+  <main class="page">
+
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>›</span>
+      <a href="properties.html">Properties</a>
+      <span>›</span>
+      <span>Property details</span>
+    </div>
+
+    <section class="property-top">
+      <div>
+        <div class="eyebrow">Featured residence</div>
+        <h1 class="property-title">The Willow House</h1>
+        <div class="location">
+          <span>⌖</span>
+          <span>Clifton, Karachi, Pakistan</span>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <button class="icon-action" id="saveBtn" aria-label="Save property">♡</button>
+        <button class="icon-action" onclick="shareProperty()" aria-label="Share property">↗</button>
+      </div>
+    </section>
+
+    <!-- IMAGE GALLERY -->
+    <section class="gallery">
+
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1400&q=85"
+          alt="Modern luxury living room"
+        >
+        <div class="gallery-overlay">
+          <button class="view-gallery" onclick="showToast('Full gallery preview coming soon.')">
+            View all photos
+          </button>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=85"
+          alt="Elegant modern interior"
+        >
+      </div>
+
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=85"
+          alt="Luxury bedroom"
+        >
+      </div>
+
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=900&q=85"
+          alt="Premium dining space"
+        >
+      </div>
+
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=85"
+          alt="Modern house exterior"
+        >
+      </div>
+
+    </section>
+
+    <div class="content-grid">
+
+      <div class="main-content">
+
+        <!-- OVERVIEW -->
+        <section class="section">
+          <h2>Designed for everyday living.</h2>
+
+          <div class="facts">
+            <div class="fact">
+              <strong>3</strong>
+              <span>Bedrooms</span>
+            </div>
+
+            <div class="fact">
+              <strong>3.5</strong>
+              <span>Bathrooms</span>
+            </div>
+
+            <div class="fact">
+              <strong>2,480</strong>
+              <span>Square feet</span>
+            </div>
+
+            <div class="fact">
+              <strong>Furnished</strong>
+              <span>Property type</span>
+            </div>
+          </div>
+
+          <p class="description" style="margin-top: 27px;">
+            The Willow House brings together warm natural materials, generous living spaces,
+            and contemporary architecture in one thoughtfully designed residence. Large windows
+            bring in daylight throughout the home, while carefully selected details create a calm,
+            refined atmosphere.
+          </p>
+
+          <p class="description" style="margin-top: 17px;">
+            Ideal for families, professionals, or anyone looking for a polished home in a connected
+            part of the city. The property combines privacy with easy access to restaurants,
+            shopping, schools, and everyday essentials.
+          </p>
+        </section>
+
+        <!-- AMENITIES -->
+        <section class="section">
+          <h2>What this home offers</h2>
+
+          <div class="amenities">
+
+            <div class="amenity">
+              <div class="amenity-icon">Wi</div>
+              <span>High-speed Wi-Fi</span>
+            </div>
+
+            <div class="amenity">
+              <div class="amenity-icon">AC</div>
+              <span>Central air conditioning</span>
+            </div>
+
+            <div class="amenity">
+              <div class="amenity-icon">▣</div>
+              <span>Private parking</span>
+            </div>
+
+            <div class="amenity">
+              <div class="amenity-icon">⌂</div>
+              <span>Fully furnished</span>
+            </div>
+
+            <div class="amenity">
+              <div class="amenity-icon">◉</div>
+              <span>Swimming pool</span>
+            </div>
+
+            <div class="amenity">
+              <div class="amenity-icon">♧</div>
+              <span>Private garden</span>
+            </div>
+
+            <div class="amenity">
+              <div class="amenity-icon">▤</div>
+              <span>Modern kitchen</span>
+            </div>
+
+            <div class="amenity">
+              <div class="amenity-icon">24</div>
+              <span>24/7 security</span>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- DETAILS -->
+        <section class="section">
+          <h2>Property details</h2>
+
+          <div class="details-list">
+
+            <div class="detail-row">
+              <span>Property ID</span>
+              <strong>HV-WH-2048</strong>
+            </div>
+
+            <div class="detail-row">
+              <span>Property type</span>
+              <strong>House</strong>
+            </div>
+
+            <div class="detail-row">
+              <span>Year built</span>
+              <strong>2022</strong>
+            </div>
+
+            <div class="detail-row">
+              <span>Availability</span>
+              <strong>Available now</strong>
+            </div>
+
+            <div class="detail-row">
+              <span>Furnishing</span>
+              <strong>Fully furnished</strong>
+            </div>
+
+            <div class="detail-row">
+              <span>Parking</span>
+              <strong>2 cars</strong>
+            </div>
+
+            <div class="detail-row">
+              <span>Floor</span>
+              <strong>Ground + 1</strong>
+            </div>
+
+            <div class="detail-row">
+              <span>Pets</span>
+              <strong>Considered</strong>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- LOCATION -->
+        <section class="section">
+          <h2>Where you'll be</h2>
+
+          <p class="description" style="margin-bottom: 22px;">
+            Set in Clifton, this residence keeps you close to some of the city's most popular
+            dining, shopping, leisure, and business destinations.
+          </p>
+
+          <div class="map-box">
+            <div class="map-road"></div>
+            <div class="map-road second"></div>
+
+            <div class="map-pin"></div>
+
+            <div class="map-label">
+              Clifton · Karachi
+            </div>
+          </div>
+        </section>
+
+        <!-- AI -->
+        <section class="section">
+          <div class="ai-card">
+            <h3>Ask Havenly AI</h3>
+            <p>
+              Curious about this property? In the future, Havenly AI will answer questions
+              using real property data and help you compare homes.
+            </p>
+
+            <div class="ai-input">
+              <input
+                type="text"
+                id="aiQuestion"
+                placeholder="Ask about this property..."
+              >
+              <button onclick="askAI()">Ask</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SIMILAR -->
+        <section class="similar-section">
+          <div class="similar-header">
+            <h2>Similar homes</h2>
+            <a href="properties.html" class="view-all">View all</a>
+          </div>
+
+          <div class="similar-grid">
+
+            <a href="property.html" class="similar-card">
+              <div class="similar-image">
+                <img
+                  src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=80"
+                  alt="Modern apartment"
+                >
+              </div>
+              <div class="similar-body">
+                <h3>Oak Residence</h3>
+                <p>Clifton, Karachi · 3 beds</p>
+                <div class="similar-price">PKR 240,000 <span>/ month</span></div>
+              </div>
+            </a>
+
+            <a href="property.html" class="similar-card">
+              <div class="similar-image">
+                <img
+                  src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80"
+                  alt="Luxury interior"
+                >
+              </div>
+              <div class="similar-body">
+                <h3>Harbor House</h3>
+                <p>DHA Phase 6, Karachi · 4 beds</p>
+                <div class="similar-price">PKR 310,000 <span>/ month</span></div>
+              </div>
+            </a>
+
+            <a href="property.html" class="similar-card">
+              <div class="similar-image">
+                <img
+                  src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=900&q=80"
+                  alt="Premium home"
+                >
+              </div>
+              <div class="similar-body">
+                <h3>Willow Court</h3>
+                <p>PECHS, Karachi · 3 beds</p>
+                <div class="similar-price">PKR 225,000 <span>/ month</span></div>
+              </div>
+            </a>
+
+          </div>
+        </section>
+
+      </div>
+
+      <!-- INQUIRY CARD -->
+      <aside class="booking-card">
+
+        <div class="price-line">
+          <div>
+            <span class="price">PKR 280,000</span>
+            <span class="per"> / month</span>
+          </div>
+
+          <span class="verified">✓ Verified</span>
+        </div>
+
+        <div class="field">
+          <label for="moveDate">Preferred move-in</label>
+          <input type="date" id="moveDate">
+        </div>
+
+        <div class="field">
+          <label for="stayLength">Rental duration</label>
+          <input type="text" id="stayLength" placeholder="e.g. 12 months">
+        </div>
+
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea
+            id="message"
+            placeholder="Tell the property manager what you're looking for..."
+          ></textarea>
+        </div>
+
+        <button class="inquire-btn" onclick="sendInquiry()">
+          Send inquiry
+        </button>
+
+        <p class="booking-note">
+          This is a portfolio demo. No real booking or payment is processed.
+        </p>
+
+        <div class="agent">
+          <img
+            class="agent-avatar"
+            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80"
+            alt="Property advisor"
+          >
+
+          <div class="agent-info">
+            <strong>Ayesha Malik</strong>
+            <span>Havenly Property Advisor</span>
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+
+      <div class="footer-top">
+
+        <div class="footer-brand">
+          <a href="index.html" class="logo">Haven<span>ly</span></a>
+          <p>
+            A premium property discovery experience designed for modern renters
+            and future intelligent real estate search.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="properties.html">All properties</a>
+          <a href="properties.html">Featured homes</a>
+          <a href="index.html#locations">Locations</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Havenly</h4>
+          <a href="index.html#about">About</a>
+          <a href="#" onclick="showToast('Contact page coming soon.'); return false;">Contact</a>
+          <a href="#" onclick="showToast('AI features are planned for a future version.'); return false;">Havenly AI</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Demo information</a>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Havenly. Portfolio concept.</span>
+        <span>Designed for a future-ready real estate experience.</span>
+      </div>
+
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const nav = document.getElementById("nav");
+    const saveBtn = document.getElementById("saveBtn");
+
+    menuBtn.addEventListener("click", () => {
+      nav.classList.toggle("mobile-open");
+      menuBtn.textContent = nav.classList.contains("mobile-open") ? "×" : "☰";
+    });
+
+    saveBtn.addEventListener("click", () => {
+      saveBtn.classList.toggle("saved");
+
+      if (saveBtn.classList.contains("saved")) {
+        saveBtn.textContent = "♥";
+        showToast("Property saved to your favourites.");
+      } else {
+        saveBtn.textContent = "♡";
+        showToast("Property removed from favourites.");
+      }
+    });
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      clearTimeout(window.toastTimer);
+
+      window.toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2800);
+    }
+
+    function shareProperty() {
+      if (navigator.share) {
+        navigator.share({
+          title: "The Willow House | Havenly",
+          text: "Take a look at this property on Havenly.",
+          url: window.location.href
+        }).catch(() => {});
+      } else {
+        showToast("Property link is ready to share.");
+      }
+    }
+
+    function sendInquiry() {
+      const date = document.getElementById("moveDate").value;
+      const duration = document.getElementById("stayLength").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      if (!date || !duration || !message) {
+        showToast("Please complete the inquiry fields.");
+        return;
+      }
+
+      showToast("Demo inquiry submitted successfully.");
+
+      document.getElementById("moveDate").value = "";
+      document.getElementById("stayLength").value = "";
+      document.getElementById("message").value = "";
+    }
+
+    function askAI() {
+      const input = document.getElementById("aiQuestion");
+      const question = input.value.trim();
+
+      if (!question) {
+        showToast("Type a question for Havenly AI.");
+        return;
+      }
+
+      showToast("Havenly AI will be connected to real property data later.");
+      input.value = "";
+    }
+  </script>
+
+</body>
+  </html>
